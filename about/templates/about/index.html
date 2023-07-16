@@ -10,15 +10,20 @@
   <div class="logo">LaunchLink</div>
   <ul class="nav-links">
     <div class="menu">
-      <li><a href="/">Home</a></li>
-      <li><a href="/">About</a></li>
-      <li><a href="/">Services</a></li>
-      <li><a href="/">Contact</a></li>
+      <li><a href="{% url 'about:index' %}">Home</a></li>
+      <li><a href="{% url 'about:index' %}">About</a></li>
+      <li><a href="{% url 'about:index' %}">Services</a></li>
+      <li><a href="{% url 'about:index' %}">Contact</a></li>
     </div>
   </ul>
 </nav>
 
 <!--Section Divier-->
 <hr>
+
+<!--Welcome Section-->
+<div id="welcome-image">
+  <img src="{% static 'about/student.jpg' %}" alt="Image of Student">
+</div>
 
 {% endblock %}
