@@ -1,25 +1,24 @@
 {% extends "about/layout.html" %}
 {% load static %}
+{% load bootstrap5 %}
 
 {% block body %}
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg bg-body-tertiary" id="nav_custom">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">About</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Pricing</a>
-        <a class="nav-link disabled">Disabled</a>
-      </div>
+<nav class="navbar">
+  <!-- Logo + Name-->
+  <div class="logo">LaunchLink</div>
+  <ul class="nav-links">
+    <div class="menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/">About</a></li>
+      <li><a href="/">Services</a></li>
+      <li><a href="/">Contact</a></li>
     </div>
-  </div>
+  </ul>
 </nav>
 
+<!--Section Divier-->
+<hr>
 
-  {% endblock %}
+{% endblock %}
