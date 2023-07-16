@@ -10,10 +10,10 @@
   <div class="logo">LaunchLink</div>
   <ul class="nav-links">
     <div class="menu">
-      <li><a href="{% url 'about:index' %}">Home</a></li>
-      <li><a href="{% url 'about:index' %}">About</a></li>
-      <li><a href="{% url 'about:index' %}">Services</a></li>
-      <li><a href="{% url 'about:index' %}">Contact</a></li>
+      <li><a href="{% url 'about:home' %}">Home</a></li>
+      <li><a href="{% url 'about:home' %}">About</a></li>
+      <li><a href="{% url 'about:home' %}">Services</a></li>
+      <li><a href="{% url 'about:home' %}">Contact</a></li>
     </div>
   </ul>
 </nav>
@@ -23,7 +23,7 @@
 
 <!--Welcome Section-->
 <div id="welcome-image">
-  <img src="{% static 'about/student.jpg' %}" alt="Image of Student">
+  <img src="{% static 'about/images/student.jpg' %}" alt="Image of Student">
 </div>
 
 {% endblock %}
