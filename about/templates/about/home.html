@@ -11,9 +11,9 @@
   <ul class="nav-links">
     <div class="menu">
       <li><a href="{% url 'about:home' %}">Home</a></li>
-      <li><a href="{% url 'about:home' %}">About</a></li>
-      <li><a href="{% url 'about:home' %}">Services</a></li>
+      <li><a href="{% url 'about:home' %}">Dashboard</a></li>
       <li><a href="{% url 'about:home' %}">Contact</a></li>
+      <li><a href="{% url 'about:home' %}">Sign In</a></li>
     </div>
   </ul>
 </nav>
@@ -22,8 +22,12 @@
 <hr>
 
 <!--Welcome Section-->
-<div id="welcome-image">
-  <img src="{% static 'about/images/student.jpg' %}" alt="Image of Student">
-</div>
+<div id="intro-container">
+  <img src="{% static 'about/images/scenery.jpg' %}" alt="Snow" style="width:100%; height: 98%;">
+  <div id="intro-centered"> <span class="special-text"> Hi! </span> Welcome to <span class="special-text"> LaunchLink. </span></div>
+</div> 
+
+<!--Section Divier-->
+<hr>
 
 {% endblock %}

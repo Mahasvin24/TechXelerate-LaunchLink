@@ -60,4 +60,22 @@ hr {
   background-color: #E1EFF6;
 }
 
+#intro-centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#intro-container {
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+}
+
+.special-text {
+  color: #F8C8C6;
+}
+
 /*# sourceMappingURL=style.css.map */
