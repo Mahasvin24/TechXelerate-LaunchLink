@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'about',
+    'accounts',
     'bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -101,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "accounts.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -118,6 +121,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+# STATICFILES_DIRS = (
+#     'staticfiles',
+# )
+
+MEDIA_URL = '/media/' # Included upload images
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') # Included upload images
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

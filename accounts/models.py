@@ -1,0 +1,41 @@
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from phonenumber_field.modelfields import PhoneNumberField
+
+class User(AbstractUser):
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(max_length=254)
+    number = PhoneNumberField(blank=True)
+    img = models.ImageField(upload_to='avatars', blank=True, default='accounts/blank_profile.png')
+    address = models.CharField(max_length=150)
+    
+    def __str__(self):
+        return self.username
+
+class Volunteer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='volunteer')
+    grade_level = models.IntegerField()
+    volunteer_hours = models.IntegerField(default = 0)
+    # skills = models.TextField()
+    # interests = models.TextField()
+    # availability = models.TextField()  
+
+    def __str__(self):
+        return self.user.username
+    
+class Client(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='requester')
+    
+    def __str__(self):
+        return self.user.username
+    
+class Business(models.Model):
+    user = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='business') 
+    name = models.CharField(max_length=150)
+    description = models.TextField()
+    address = models.CharField(max_length=150)
+    
+    def __str__(self):
+        return self.name
