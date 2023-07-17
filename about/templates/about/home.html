@@ -5,18 +5,20 @@
 {% block body %}
 
 <!--Navbar-->
-<nav class="navbar">
-  <!-- Logo + Name-->
-  <div class="logo">LaunchLink</div>
-  <ul class="nav-links">
-    <div class="menu">
-      <li><a href="{% url 'about:home' %}">Home</a></li>
-      <li><a href="{% url 'about:home' %}">Dashboard</a></li>
-      <li><a href="{% url 'about:home' %}">Contact</a></li>
-      <li><a href="{% url 'about:home' %}">Sign In</a></li>
-    </div>
-  </ul>
-</nav>
+<header>  
+  <nav class="navbar">
+    <!-- Logo + Name-->
+    <div class="logo">LaunchLink</div>
+    <ul class="nav-links">
+      <div class="menu">
+        <li><a href="{% url 'about:home' %}">Home</a></li>
+        <li><a href="{% url 'about:home' %}">Dashboard</a></li>
+        <li><a href="{% url 'about:home' %}">Contact</a></li>
+        <li><a href="{% url 'about:home' %}">Sign In</a></li>
+      </div>
+    </ul>
+  </nav>
+</header>
 
 <!--Section Divier-->
 <hr>
@@ -27,7 +29,6 @@
   <div id="intro-centered"> <span class="special-text"> Hi! </span> Welcome to <span class="special-text"> LaunchLink. </span></div>
 </div> 
 
-<!--Section Divier-->
-<hr>
+
 
 {% endblock %}
