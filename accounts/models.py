@@ -10,7 +10,8 @@ class User(AbstractUser):
     number = PhoneNumberField(blank=True)
     img = models.ImageField(upload_to='avatars', blank=True, default='accounts/blank_profile.png')
     address = models.CharField(max_length=150)
-    
+    is_volunteer = models.BooleanField(default=False)
+    is_client = models.BooleanField(default=False)
     def __str__(self):
         return self.username
 

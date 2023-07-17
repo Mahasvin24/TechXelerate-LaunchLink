@@ -1,0 +1,10 @@
+{% extends 'about/layout.html' %}
+{% load static %}
+
+{% block body %}
+<form action="{% url 'accounts:new-business' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% endblock body %}
