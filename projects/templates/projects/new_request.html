@@ -1,0 +1,12 @@
+{% extends 'about/layout.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block body %}
+    {{ created }}
+    <form action="{% url 'projects:new-request' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create">
+    </form>
+{% endblock body %}

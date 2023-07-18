@@ -2,6 +2,7 @@ asgiref==3.7.2
 beautifulsoup4==4.12.2
 Django==4.2.3
 django-bootstrap-v5==1.0.11
+django-multiselectfield==0.1.12
 django-phonenumber-field==7.1.0
 phonenumbers==8.13.16
 Pillow==10.0.0
