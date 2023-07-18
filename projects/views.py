@@ -59,3 +59,27 @@ def new_request(request):
     else:
         return redirect('about:home')
     
+@login_required
+def new_task(request, project_id):
+    pprint(Project.objects.get(id=project_id).managers)
+    if Project.objects.filter(id=project_id).exists() and Project.objects.get(id=project_id).managers.filter(user = request.user).exists():
+        if request.method == 'POST':
+            form = TaskForm(request.POST, request.FILES, **{'project_id': project_id})
+            context = {'form':form}
+            if form.is_valid():
+                task = form.save()
+                created = True
+                context = {'created' : created}
+                return render(request, 'projects/new_task.html', {
+                    'created' : created
+                })
+            else:
+                return render(request, 'projects/new_task.html', context)
+        else:
+            form = TaskForm(**{'project_id': project_id})
+            context = {
+                'form' : form,
+            }
+            return render(request, 'projects/new_task.html', context)
+    else:
+        return redirect('about:home')
