@@ -143,7 +143,6 @@ hr {
     background-color: $image_background_color;
 }
 
-// Text on image
 #intro-centered {
     position: absolute;
     top: 50%;
@@ -156,6 +155,11 @@ hr {
     text-align: center;
     color: white;
     font-size: 3.5vw;
+}
+
+#intro-container p {
+    font-size: 80px;
+    font-weight: 600;
 }
 
 .special-text {
@@ -173,3 +177,4 @@ footer {
     text-align: center;
     border: 3px green;
 }
+

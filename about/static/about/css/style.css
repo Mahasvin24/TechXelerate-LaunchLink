@@ -123,6 +123,11 @@ hr {
   font-size: 3.5vw;
 }
 
+#intro-container p {
+  font-size: 80px;
+  font-weight: 600;
+}
+
 .special-text {
   color: #F8C8C6;
 }
