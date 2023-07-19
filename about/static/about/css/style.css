@@ -1,10 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   font-family: "Poppins", sans-serif;
 }
@@ -47,6 +41,8 @@ nav a::before {
 }
 
 .menu {
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
   display: flex;
   gap: 1em;
   font-size: 18px;
@@ -129,6 +125,18 @@ hr {
 
 .special-text {
   color: #F8C8C6;
+}
+
+#bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+/* Footer CSS*/
+footer {
+  text-align: center;
+  border: 3px green;
 }
 
 /*# sourceMappingURL=style.css.map */

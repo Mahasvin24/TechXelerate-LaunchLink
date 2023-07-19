@@ -2,11 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
 // Variables
+$background: #f6f9fb;
+$primary: #135cfd;
+$secondary: #e1eff6;
 $font_color: black;
 $nav_hover: #DEE3FF;
 $image_background_color: #E1EFF6;
 $navbar_color: white;
 $font: 'Poppins', sans-serif;
+$nav_font: 'Poppins', sans-serif;
 $divisor_line_color: #32364d;
 
 //Color Scheme
@@ -17,14 +21,7 @@ $dark_pink: #F4A4A4;
 $blue: #4EA1D3;
 
 
-
 // CSS
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: $font;
 }
@@ -71,6 +68,8 @@ nav a::before {
 
 // Navbar Menu 
 .menu {
+    font-family: $nav_font;
+    padding: 10px;
     display: flex;
     gap: 1em;
     font-size: 18px;
@@ -150,7 +149,7 @@ hr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+}  
 
 #intro-container {
     position: relative;
@@ -161,4 +160,16 @@ hr {
 
 .special-text {
     color: $light_pink;
+}
+
+#bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+/* Footer CSS*/
+footer {
+    text-align: center;
+    border: 3px green;
 }
