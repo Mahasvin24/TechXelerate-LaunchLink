@@ -7,15 +7,12 @@ from phonenumber_field.formfields import PhoneNumberField
 
 class ClientSignUpForm(UserCreationForm):
     img = forms.ImageField()
-    username = forms.CharField(max_length=30, required=True,)
     first_name = forms.CharField(max_length=100,)
     last_name = forms.CharField(max_length=100,)
     email = forms.EmailField(max_length=150,)    
     phone_number = PhoneNumberField()
     address = forms.CharField(max_length=100, )
-    password1 = forms.CharField()
-    
-    password2 = forms.CharField()
+
 
     class Meta:
         model = User

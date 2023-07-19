@@ -1,0 +1,19 @@
+{% extends 'about/layout.html' %}
+{% load static %}
+
+{% block body %}
+  <h1>Business Details</h1>
+  <p><strong>Name:</strong> {{ business.name }}</p>
+  <p><strong>Description:</strong> {{ business.description }}</p>
+  <p><strong>Address:</strong> {{ business.address }}</p>
+  
+  <div>
+    <img src="{{ business.user.user.img.url }}" alt="Business Image">
+  </div>
+  <p><strong>Username:</strong> {{ business.user.user.username }}</p>
+  <p><strong>First Name:</strong> {{ business.user.user.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ business.user.user.last_name }}</p>
+  <p><strong>Email:</strong> {{ business.user.user.email }}</p>
+  <p><strong>Number:</strong> {{ business.user.user.number }}</p>
+  <p><strong>Address:</strong> {{ business.user.user.address }}</p>
+{% endblock body %}

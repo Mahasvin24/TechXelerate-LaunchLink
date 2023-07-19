@@ -3,16 +3,16 @@ from .models import User, Client, Volunteer, Business
 # Register your models here.
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'email', 'number', 'address')
+    list_display = ('username', 'first_name', 'last_name', 'email', 'number', 'address', 'id')
     
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('user',)
+    list_display = ('user', 'id')
 
 class VolunteerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'grade_level' , 'volunteer_hours')
+    list_display = ('user', 'grade_level' , 'volunteer_hours', 'id')
     
 class BusinessAdmin(admin.ModelAdmin):
-    list_display = ('user', 'name', 'description', 'address')
+    list_display = ('user', 'name', 'description', 'address', 'id')
     
 admin.site.register(User, UserAdmin)
 admin.site.register(Client, ClientAdmin)

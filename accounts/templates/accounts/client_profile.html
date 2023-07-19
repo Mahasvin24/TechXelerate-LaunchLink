@@ -1,0 +1,27 @@
+{% extends 'about/layout.html' %}
+{% load static %}
+
+{% block body %}
+    <h1>Client Details</h1>
+  <p><strong>Username:</strong> {{ client.user.username }}</p>
+  <p><strong>First Name:</strong> {{ client.user.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ client.user.last_name }}</p>
+  <p><strong>Email:</strong> {{ client.user.email }}</p>
+  <p><strong>Number:</strong> {{ client.user.number }}</p>
+  <p><strong>Address:</strong> {{ client.user.address }}</p>
+  <!-- Uncomment the following lines if you have the image field -->
+  <!-- <div>
+    <img src="{{ client.user.img.url }}" alt="Client Image">
+  </div> -->
+
+  {% if client.businesses.all %}
+    {% for business in client.businesses.all %}
+        <h2>Business Information</h2>
+        <p><strong>Name:</strong> {{ business.name }}</p>
+        <p><strong>Description:</strong> {{ business.description }}</p>
+        <p><strong>Address:</strong> {{ business.address }}</p>
+    {% endfor %}
+  {% else %}
+    <p>This client does not have a associated business.</p>
+  {% endif %}
+{% endblock body %}
