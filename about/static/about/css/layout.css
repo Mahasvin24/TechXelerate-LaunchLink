@@ -103,45 +103,4 @@ hr {
   color: #32364d;
 }
 
-#welcome-image {
-  width: 75vw;
-  height: 80vh;
-  background-color: #E1EFF6;
-}
-
-#intro-centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#intro-container {
-  position: relative;
-  text-align: center;
-  color: white;
-  font-size: 3.5vw;
-}
-
-#intro-container p {
-  font-size: 80px;
-  font-weight: 600;
-}
-
-.special-text {
-  color: #F8C8C6;
-}
-
-#bottom-right {
-  position: absolute;
-  bottom: 8px;
-  right: 16px;
-}
-
-/* Footer CSS*/
-footer {
-  text-align: center;
-  border: 3px green;
-}
-
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=layout.css.map */
