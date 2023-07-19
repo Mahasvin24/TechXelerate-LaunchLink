@@ -11,6 +11,22 @@ Client = apps.get_model('accounts', 'Client')
 from .models import ProjectRequest, Project, Task
 
 # Create your views here.
+
+def dashboard(request):
+    return render(request, 'projects/project_dashboard.html', {
+        'projects_in_progress' : Project.objects.exclude(status = '4'),
+        'completed_projects' : Project.objects.filter(status = '4'),
+    })
+
+def project_view(request, project_id):
+    if Project.objects.filter(id=project_id).exists():
+        project = Project.objects.get(id=project_id)
+        return render(request, 'projects/project_view.html', {
+            'project' : project
+        })
+    else:
+        return redirect('about:home')
+
 @login_required
 def new_project(request, request_id):
     if request.user.is_volunteer and ProjectRequest.objects.filter(id=request_id).exists():
