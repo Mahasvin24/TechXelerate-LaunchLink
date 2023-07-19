@@ -1,0 +1,61 @@
+{% extends 'about/layout.html' %}
+
+{% block body %}
+    <h1>Project:</h1>
+    <div class="project">
+        <h2>{{ project.project_request.title }}</h2>
+        <p>
+            <b>Description:</b> {{ project.project_request.description }}
+        </p>
+        <p>
+            <b>Status:</b> {{ project.get_status_display }}
+        </p>
+        <p>   
+            <b>Managers:</b>
+            {% for manager in project.managers.all %}
+            {{ manager.user.username }},
+            {% endfor %}
+        </p>
+
+        <p>
+            <b>Developers:</b>
+            {% for developer in project.developers.all %}
+            {{ developer.user.username }},
+            {% endfor %}
+        </p>
+
+        {% if project.product_link %}
+        <p>
+            <b>Product Link:</b> <a href="{{ project.product_link }}">{{ project.product_link }}</a>
+        </p>
+        {% endif %}
+
+        {% if project.github_link %}
+        <p>
+            <b>GitHub Link:</b> <a href="{{ project.github_link }}">{{ project.github_link }}</a>
+        </p>
+        {% endif %}
+        <p>
+            <b>Created:</b> {{ project.created|date:"M d, Y" }}
+        </p>
+
+        <p>
+            <b>Updated:</b> {{ project.updated|date:"M d, Y" }} 
+        </p>
+        {% if project.project_request.business %}
+            <p>
+                <b>Business:</b> {{ project.project_request.business.name }}
+            </p>
+        {% else %}
+            <p>
+                {% if project.project_request.client %}
+                    <b>Client:</b> {{ project.project_request.client }}
+                {% endif %}
+            </p>
+        {% endif %}
+        
+
+    </div>
+
+
+{% endblock body %}

@@ -1,0 +1,39 @@
+{% extends 'about/layout.html' %}
+{% load static %}
+
+{% block body %}
+    <h1>Client Details</h1>
+  <p><strong>Username:</strong> {{ client.user.username }}</p>
+  <p><strong>First Name:</strong> {{ client.user.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ client.user.last_name }}</p>
+  <p><strong>Email:</strong> {{ client.user.email }}</p>
+  <p><strong>Number:</strong> {{ client.user.number }}</p>
+  <p><strong>Address:</strong> {{ client.user.address }}</p>
+  <!-- Uncomment the following lines if you have the image field -->
+  <!-- <div>
+    <img src="{{ client.user.img.url }}" alt="Client Image">
+  </div> -->
+
+  <h2>Businesses</h2>
+  {% if client.businesses.all %}
+    {% for business in client.businesses.all %}
+        <h2>Business Information</h2>
+        <p><strong>Name:</strong> {{ business.name }}</p>
+        <p><strong>Description:</strong> {{ business.description }}</p>
+        <p><strong>Address:</strong> {{ business.address }}</p>
+    {% endfor %}
+  {% else %}
+    <p>This client does not have a associated business.</p>
+  {% endif %}
+
+  <h2>Projects Requested</h2>
+  {% for project_request in client.requests.all %}
+    {% if project_request.project.all %}
+        {% for project in project_request.project.all %}
+            <p><strong>Title:</strong> {{ project_request.title }}</p>
+            <p><strong>Description:</strong> {{ project_request.description }}</p>
+            <p><strong>Status:</strong> {{ project_request.get_status_display }}</p>
+        {% endfor %}
+    {% endif %}
+  {% endfor %}
+{% endblock body %}

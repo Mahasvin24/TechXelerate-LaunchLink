@@ -7,6 +7,46 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 import pprint
 from django.contrib.auth.decorators import login_required
+from django.apps import apps
+
+def business_profile(request, business_id):
+    if Business.objects.filter(id=business_id).exists():
+        business = Business.objects.get(id=business_id)
+        tmp = [ project.project.all() for project in business.requests.all()]
+
+        projects = []
+        for t in tmp:
+            for p in t:
+                projects.append(p)
+        context = {
+            'business' : business,
+            'projects' : projects,
+        }
+        return render(request, 'accounts/business_profile.html', context)
+    else:
+        return redirect('about:home')
+    
+
+def client_profile(request, client_id):
+    if Client.objects.filter(id=client_id).exists():
+        client = Client.objects.get(id=client_id)
+        context = {
+            'client' : client,
+        }
+        return render(request, 'accounts/client_profile.html', context)
+    else:
+        return redirect('about:home')
+
+def volunteer_profile(request, volunteer_id):
+    if Volunteer.objects.filter(id=volunteer_id).exists():
+        volunteer = Volunteer.objects.get(id=volunteer_id)
+        context = {
+            'volunteer' : volunteer,
+        }
+        return render(request, 'accounts/volunteer_profile.html', context)
+    else:
+        return redirect('about:home')
+    
 
 
 # Create your views here.

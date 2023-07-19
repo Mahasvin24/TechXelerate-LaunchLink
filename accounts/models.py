@@ -33,7 +33,7 @@ class Client(models.Model):
         return self.user.username
     
 class Business(models.Model):
-    user = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='business') 
+    user = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='businesses') 
     name = models.CharField(max_length=150)
     description = models.TextField()
     address = models.CharField(max_length=150)

@@ -1,0 +1,33 @@
+{% extends 'about/layout.html' %}
+{% load static %}
+
+{% block body %}
+  <div>
+    <img src="{{ volunteer.user.img.url }}" alt="Volunteer Image">
+  </div>
+  <h1>Volunteer Details</h1>
+  <p><strong>Username:</strong> {{ volunteer.user.username }}</p>
+  <p><strong>First Name:</strong> {{ volunteer.user.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ volunteer.user.last_name }}</p>
+  <p><strong>Email:</strong> {{ volunteer.user.email }}</p>
+  <p><strong>Number:</strong> {{ volunteer.user.number }}</p>
+  <p><strong>Address:</strong> {{ volunteer.user.address }}</p>
+  <p><strong>Grade Level:</strong> {{ volunteer.grade_level }}</p>
+  <p><strong>Volunteer Hours:</strong> {{ volunteer.volunteer_hours }}</p>
+  <!-- Uncomment the following lines if you have the skills, interests, and availability fields -->
+  <!-- <p><strong>Skills:</strong> {{ volunteer.skills }}</p>
+  <p><strong>Interests:</strong> {{ volunteer.interests }}</p>
+  <p><strong>Availability:</strong> {{ volunteer.availability }}</p> -->
+  <h2>Projects Managed</h2>
+  {% for project in volunteer.projects_managed.all %}
+    <p><strong>Title:</strong> {{ project.project_request.title }}</p>
+    <p><strong>Description:</strong> {{ project.project_request.description }}</p>
+    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+  {% endfor %}
+  <h2>Projects Developed</h2>
+  {% for project in volunteer.projects_developed.all %}
+    <p><strong>Title:</strong> {{ project.project_request.title }}</p>
+    <p><strong>Description:</strong> {{ project.project_request.description }}</p>
+    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+  {% endfor %}
+{% endblock body %}

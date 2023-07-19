@@ -1,0 +1,38 @@
+{% extends 'about/layout.html' %} 
+
+{% block body %}
+<div class="dashboard">
+  <div class="dashboard-header">
+    <div class="header-item">
+      <h2>Projects In Progress</h2>
+      <p>{{ projects_in_progress|length }}</p>
+    </div>
+
+    <div class="header-item">
+      <h2>Completed Projects</h2>
+      <p>{{ completed_projects|length }}</p>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div class="projects-in-progress">
+      {% for project in projects_in_progress %}
+      <div class="project-card">
+        <h3>{{ project.project_request.title }}</h3>
+        <p>Last Updated: {{ project.updated }}</p>
+        <p>Status: {{ project.status }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="completed-projects">
+      {% for project in completed_projects %}
+      <div class="project-card">
+        <h3>{{ project.title }}</h3>
+        <p>Date Completed: {{ project.updated }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock body %}
