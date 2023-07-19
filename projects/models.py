@@ -16,7 +16,7 @@ class ProjectRequest(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_business = models.BooleanField(default=False)
-    business = models.ForeignKey('accounts.Business', on_delete=models.CASCADE, null=True, related_name='requests', default=None)
+    business = models.ForeignKey('accounts.Business', on_delete=models.CASCADE, null=True, related_name='requests', default=None, blank=True)
     client = models.ForeignKey('accounts.Client', on_delete=models.CASCADE, null=True, related_name='requests')
     slug = models.SlugField()
     status = models.CharField(max_length=100, choices=request_status, default=PENDING)

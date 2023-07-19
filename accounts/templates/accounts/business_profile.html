@@ -7,6 +7,7 @@
   <p><strong>Description:</strong> {{ business.description }}</p>
   <p><strong>Address:</strong> {{ business.address }}</p>
   
+  <h2>Client</h2>
   <div>
     <img src="{{ business.user.user.img.url }}" alt="Business Image">
   </div>
@@ -16,4 +17,12 @@
   <p><strong>Email:</strong> {{ business.user.user.email }}</p>
   <p><strong>Number:</strong> {{ business.user.user.number }}</p>
   <p><strong>Address:</strong> {{ business.user.user.address }}</p>
+
+  <h2>Projects Requested</h2>
+  {% for project in projects %}
+    <p><strong>Title:</strong> {{ project.project_request.title }}</p>
+    <p><strong>Description:</strong> {{ project.project_request.description }}</p>
+    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+  {% endfor %}
+
 {% endblock body %}

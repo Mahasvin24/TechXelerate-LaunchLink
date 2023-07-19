@@ -14,6 +14,7 @@
     <img src="{{ client.user.img.url }}" alt="Client Image">
   </div> -->
 
+  <h2>Businesses</h2>
   {% if client.businesses.all %}
     {% for business in client.businesses.all %}
         <h2>Business Information</h2>
@@ -24,4 +25,15 @@
   {% else %}
     <p>This client does not have a associated business.</p>
   {% endif %}
+
+  <h2>Projects Requested</h2>
+  {% for project_request in client.requests.all %}
+    {% if project_request.project.all %}
+        {% for project in project_request.project.all %}
+            <p><strong>Title:</strong> {{ project_request.title }}</p>
+            <p><strong>Description:</strong> {{ project_request.description }}</p>
+            <p><strong>Status:</strong> {{ project_request.get_status_display }}</p>
+        {% endfor %}
+    {% endif %}
+  {% endfor %}
 {% endblock body %}
