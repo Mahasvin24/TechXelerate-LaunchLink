@@ -31,7 +31,7 @@
                 <ul class="nav-links">
                     <div class="menu" style="margin-top: 10px;">
                     <li><a href="{% url 'about:home' %}">Home</a></li>
-                    <li><a href="{% url 'about:home' %}">Dashboard</a></li>
+                    <li><a href="{% url 'projects:dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'about:home' %}">Contact</a></li>
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
@@ -41,7 +41,13 @@
                     </div>
                 </ul>
             </nav>
+
         {% endblock nav %}
+        {% block space %}
+            <div style="height: 100px;"></div>
+        {% endblock space %}
+
+
         {% block body %}
         {% endblock %}
 

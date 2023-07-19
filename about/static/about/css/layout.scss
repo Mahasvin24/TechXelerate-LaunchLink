@@ -15,7 +15,7 @@ $divisor_line_color: #32364d;
 //Color Scheme
 $dark_purple: #6474E5;
 $light_purple: #9AA4EC;
-$light_pink: #F8C8C6; 
+$light_pink: #F8C8C6;
 $dark_pink: #F4A4A4;
 $blue: #4EA1D3;
 
@@ -39,7 +39,7 @@ li {
     background-color: white;
     color: black;
     flex-wrap: wrap;
-}  
+}
 
 nav a::before {
     content: '';
@@ -73,7 +73,7 @@ nav a::before {
     flex-wrap: wrap;
 }
 
-  
+
 header::after {
     content: '';
     display: table;
@@ -84,7 +84,7 @@ nav li {
     display: inline-block;
     margin-left: 70px;
     padding-top: 23px;
-  
+
     position: relative;
 }
 
@@ -93,29 +93,29 @@ nav a {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 14px;
-  }
-  
-  nav a:hover {
+}
+
+nav a:hover {
     color: #000;
-  }
-  
-  nav a::before {
+}
+
+nav a::before {
     content: '';
     display: block;
     height: 5px;
     background-color: #444;
-  
+
     position: absolute;
     top: 0%;
     width: 0%;
-  
+
     transition: all ease-in-out 250ms;
-  }
-  
-  nav a:hover::before {
+}
+
+nav a:hover::before {
     width: 70%;
-  }
-  
+}
+
 
 /*
 .menu li:hover {
