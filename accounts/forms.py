@@ -57,10 +57,11 @@ class ClientSignUpForm(UserCreationForm):
         })
         self.fields['address'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Address'
+            'placeholder': '123 Sesame Street'
         })
         self.fields['phone_number'].widget = forms.TextInput(attrs={
             'class': 'form-control',
+            'placeholder': '+1 123 456 7890'
         })
         self.fields['img'].widget = forms.FileInput(attrs={
             'class': 'form-control',
