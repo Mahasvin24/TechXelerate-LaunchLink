@@ -11,6 +11,18 @@
   <div class="row" id="client-form">
     <div class="col-md-12">
       {% if created %}
+        <h1>Welcome {{ user.first_name }}!</h1>
+        <div class="form">
+          <p>Would you like to add your business?</p>
+          <button onclick="window.location.href='{% url 'accounts:new-business' %}'">
+            Yes bring me there!
+          </button>
+          <button onclick="window.location.href='{% url 'projects:dashboard' %}'">
+            No take me to the dashboard!
+          </button>
+
+        </div>
+        
       {% else %}
         <form action="{% url 'accounts:new-client' %}"
               method="post"
