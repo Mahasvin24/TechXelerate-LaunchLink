@@ -109,10 +109,10 @@ def login_view(request):
             login(request, authenticated_user)
             return redirect('about:home')
         else:
-            return render(request, 'accounts/login.html', {'login_form':form})
+            return render(request, 'accounts/login.html', {'form':form})
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'login_form':form})
+    return render(request, 'accounts/login.html', {'form':form})
 
 def logout_view(request):
     logout(request)

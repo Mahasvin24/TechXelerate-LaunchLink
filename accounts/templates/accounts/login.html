@@ -1,19 +1,27 @@
 {% extends "about/layout.html" %}
-
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'accounts/css/form.css' %}" />
+{% endblock head %}
+{% block js %}
+{% endblock js %}
+{% block nav %}
+{% endblock nav %}
 {% block body %}
-
-    <h2>Login</h2>
-
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
-    <form action="{% url 'accounts:login' %}" method="post">
+  <div class="row" id="client-form">
+    <div class="col-md-12">
+      <form
+            method="post"
+            enctype="multipart/form-data">
         {% csrf_token %}
-        {{ login_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-
-    Don't have an account? <a href="{% url 'accounts:new-client' %}">Register here.</a>
-
-{% endblock %}
+        <h1>Log In</h1>
+        {{ form.errors }}
+        <fieldset>
+          {{ form.as_p }}
+        </fieldset>
+        <button type="submit">Sign Up</button>
+        <p class="bottom-text">Not Registered? <a href="{% url 'accounts:new-client' %}">Create an account</a></p>
+      </form>
+    </div>
+  </div>
+{% endblock body %}
