@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Comfortaa", cursive;
 }
 
 a {
@@ -89,7 +89,7 @@ nav a::before {
   position: absolute;
   top: 0%;
   width: 0%;
-  transition: all ease-in-out 250ms;
+  transition: all ease-in-out 300ms;
 }
 
 nav a:hover::before {
