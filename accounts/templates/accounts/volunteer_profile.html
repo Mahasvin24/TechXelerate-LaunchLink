@@ -8,7 +8,7 @@
     <div class="container">
       <table>
         <tr>
-          <td style="width: 10%;">
+          <td style="width: 10%; padding-right: 10px;">
             <!--<img src="{{ volunteer.user.img.url }}" alt="Volunteer Image">-->
             <!--Subsitute picture used for testing purposes-->
             <img src="{% static 'accounts/images/blank_profile.png' %}" alt="Volunteer Image" style="width: 100%;">
@@ -108,8 +108,26 @@
       <button type="submit" class="btn btn-primary" style="margin: 10px; float: right; width: 10%;">Save</button>
     </li>
   </ul>
+  
+  <br>
 
-  <!-- Uncomment the following lines if you have the skills, interests, and availability fields -->
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Projects Managed</h1>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="container-fluid" id="projects-managed">
+    
+  </div>
+  
+  
+  
+  
+  
+   <!-- Uncomment the following lines if you have the skills, interests, and availability fields -->
   <!-- <p><strong>Skills:</strong> {{ volunteer.skills }}</p>
   <p><strong>Interests:</strong> {{ volunteer.interests }}</p>
   <p><strong>Availability:</strong> {{ volunteer.availability }}</p> -->
