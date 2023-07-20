@@ -1,9 +1,8 @@
-{% extends 'about/layout.html' %}
+{% extends "about/layout.html" %}
 {% load static %}
 
 {% block body %}
-  <br>  
-
+  <br>
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <table>
@@ -11,7 +10,9 @@
           <td style="width: 10%; padding-right: 10px;">
             <!--<img src="{{ volunteer.user.img.url }}" alt="Volunteer Image">-->
             <!--Subsitute picture used for testing purposes-->
-            <img src="{% static 'accounts/images/blank_profile.png' %}" alt="Volunteer Image" style="width: 100%;">
+            <img src="{% static 'accounts/images/blank_profile.png' %}"
+                 alt="Volunteer Image"
+                 style="width: 100%">
           </td>
           <td>
             <h1 class="display-4">Account Settings</h1>
@@ -27,120 +28,168 @@
     <li class="list-group-item" style="background-color: #F0FFFF;">
       <div class="row">
         <div class="col-md-4" style="width: 10vw;">
-          <label for="exampleInputEmail1"><strong>Username:</strong></label>
+          <label for="exampleInputEmail1">
+            <strong>Username:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ volunteer.user.username }}">
+          <input type="email"
+                 class="form-control"
+                 id="exampleInputEmail1"
+                 aria-describedby="emailHelp"
+                 value="{{ volunteer.user.username }}">
         </div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="row">
         <div class="col-md-4" style="width: 11vw;">
-          <label for="exampleInputEmail1"><strong>First Name:</strong></label>
+          <label for="exampleInputEmail1">
+            <strong>First Name:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ volunteer.user.first_name }}" style="width: 80vw;">
+          <input type="email"
+                 class="form-control"
+                 id="exampleInputEmail1"
+                 aria-describedby="emailHelp"
+                 value="{{ volunteer.user.first_name }}"
+                 style="width: 80vw">
         </div>
       </div>
     </li>
     <li class="list-group-item" style="background-color: #F0FFFF;">
       <div class="row">
         <div class="col-md-4" style="width: 11vw;">
-          <label for="lastNameInput"><strong>Last Name:</strong></label>
+          <label for="lastNameInput">
+            <strong>Last Name:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text" class="form-control" id="lastNameInput" value="{{ volunteer.user.last_name }}">
+          <input type="text"
+                 class="form-control"
+                 id="lastNameInput"
+                 value="{{ volunteer.user.last_name }}">
         </div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="row">
         <div class="col-md-4" style="width: 6vw;">
-          <label for="emailInput"><strong>Email:</strong></label>
+          <label for="emailInput">
+            <strong>Email:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="email" class="form-control" id="emailInput" value="{{ volunteer.user.email }}">
+          <input type="email"
+                 class="form-control"
+                 id="emailInput"
+                 value="{{ volunteer.user.email }}">
         </div>
       </div>
     </li>
     <li class="list-group-item" style="background-color: #F0FFFF;">
       <div class="row">
         <div class="col-md-4" style="width: 9vw;">
-          <label for="numberInput"><strong>Number:</strong></label>
+          <label for="numberInput">
+            <strong>Number:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text" class="form-control" id="numberInput" value="{{ volunteer.user.number }}">
+          <input type="text"
+                 class="form-control"
+                 id="numberInput"
+                 value="{{ volunteer.user.number }}">
         </div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="row">
         <div class="col-md-4" style="width: 9vw;">
-          <label for="addressInput"><strong>Address:</strong></label>
+          <label for="addressInput">
+            <strong>Address:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text" class="form-control" id="addressInput" value="{{ volunteer.user.address }}">
+          <input type="text"
+                 class="form-control"
+                 id="addressInput"
+                 value="{{ volunteer.user.address }}">
         </div>
       </div>
     </li>
     <li class="list-group-item" style="background-color: #F0FFFF;">
       <div class="row">
         <div class="col-md-4" style="width: 12vw;">
-          <label for="gradeLevelInput"><strong>Grade Level:</strong></label>
+          <label for="gradeLevelInput">
+            <strong>Grade Level:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text" class="form-control" id="gradeLevelInput" value="{{ volunteer.grade_level }}">
+          <input type="text"
+                 class="form-control"
+                 id="gradeLevelInput"
+                 value="{{ volunteer.grade_level }}">
         </div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="row">
         <div class="col-md-4" style="width: 16vw;">
-          <label for="volunteerHoursInput"><strong>Volunteer Hours:</strong></label>
+          <label for="volunteerHoursInput">
+            <strong>Volunteer Hours:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text" class="form-control" id="volunteerHoursInput" value="{{ volunteer.volunteer_hours }}">
+          <input type="text"
+                 class="form-control"
+                 id="volunteerHoursInput"
+                 value="{{ volunteer.volunteer_hours }}">
         </div>
       </div>
     </li>
     <li class="list-group-item" style="background-color: #F0FFFF;">
-      <button type="submit" class="btn btn-primary" style="margin: 10px; float: right; width: 10%;">Save</button>
+      <button type="submit"
+              class="btn btn-primary"
+              style="margin: 10px;
+                     float: right;
+                     width: 10%">Save</button>
     </li>
   </ul>
-  
   <br>
-
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4">Projects Managed</h1>
+      <h1 class="display-4">Projects Managed</h1>
     </div>
   </div>
-
   <br>
-
-  <div class="container-fluid" id="projects-managed">
-    
-  </div>
-  
-  
-  
-  
-  
-   <!-- Uncomment the following lines if you have the skills, interests, and availability fields -->
+  <div class="container-fluid" id="projects-managed"></div>
+  <!-- Uncomment the following lines if you have the skills, interests, and availability fields -->
   <!-- <p><strong>Skills:</strong> {{ volunteer.skills }}</p>
   <p><strong>Interests:</strong> {{ volunteer.interests }}</p>
   <p><strong>Availability:</strong> {{ volunteer.availability }}</p> -->
   <h2>Projects Managed</h2>
   {% for project in volunteer.projects_managed.all %}
-    <p><strong>Title:</strong> {{ project.project_request.title }}</p>
-    <p><strong>Description:</strong> {{ project.project_request.description }}</p>
-    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+    <p>
+      <strong>Title:</strong> {{ project.project_request.title }}
+    </p>
+    <p>
+      <strong>Description:</strong> {{ project.project_request.description }}
+    </p>
+    <p>
+      <strong>Status:</strong> {{ project.get_status_display }}
+    </p>
   {% endfor %}
   <h2>Projects Developed</h2>
   {% for project in volunteer.projects_developed.all %}
-    <p><strong>Title:</strong> {{ project.project_request.title }}</p>
-    <p><strong>Description:</strong> {{ project.project_request.description }}</p>
-    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+    <p>
+      <strong>Title:</strong> {{ project.project_request.title }}
+    </p>
+    <p>
+      <strong>Description:</strong> {{ project.project_request.description }}
+    </p>
+    <p>
+      <strong>Status:</strong> {{ project.get_status_display }}
+    </p>
   {% endfor %}
 {% endblock body %}
