@@ -10,7 +10,7 @@
         {% block title %}
         <title>LaunchLink</title>
         {% endblock title %}
-        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{% static 'about/images/launchlink-logo.png' %}" type="image/x-icon">
         
         {% block layout_css %}
             <link rel="stylesheet" href="{% static 'about/css/layout.css' %}">
@@ -27,7 +27,7 @@
         {% block nav %}
             <nav class="navbar fixed-top" style="border-bottom: 3px solid black">
                 <!-- Logo + Name-->
-                <div class="logo">LaunchLink</div>
+                <div class="logo" style="font-weight: 600;">LaunchLink</div>
                 <ul class="nav-links">
                     <div class="menu" style="margin-top: 10px;">
                     <li><a href="{% url 'about:home' %}">Home</a></li>
