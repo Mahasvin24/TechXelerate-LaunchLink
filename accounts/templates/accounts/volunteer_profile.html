@@ -2,18 +2,113 @@
 {% load static %}
 
 {% block body %}
-  <div>
-    <img src="{{ volunteer.user.img.url }}" alt="Volunteer Image">
+  <br>  
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <table>
+        <tr>
+          <td style="width: 10%;">
+            <!--<img src="{{ volunteer.user.img.url }}" alt="Volunteer Image">-->
+            <!--Subsitute picture used for testing purposes-->
+            <img src="{% static 'accounts/images/blank_profile.png' %}" alt="Volunteer Image" style="width: 100%;">
+          </td>
+          <td>
+            <h1 class="display-4">Account Settings</h1>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-  <h1>Volunteer Details</h1>
-  <p><strong>Username:</strong> {{ volunteer.user.username }}</p>
-  <p><strong>First Name:</strong> {{ volunteer.user.first_name }}</p>
-  <p><strong>Last Name:</strong> {{ volunteer.user.last_name }}</p>
-  <p><strong>Email:</strong> {{ volunteer.user.email }}</p>
-  <p><strong>Number:</strong> {{ volunteer.user.number }}</p>
-  <p><strong>Address:</strong> {{ volunteer.user.address }}</p>
-  <p><strong>Grade Level:</strong> {{ volunteer.grade_level }}</p>
-  <p><strong>Volunteer Hours:</strong> {{ volunteer.volunteer_hours }}</p>
+
+  <br>
+  
+  <ul class="list-group">
+    <li class="list-group-item" style="background-color: #F0FFFF;">
+      <div class="row">
+        <div class="col-md-4" style="width: 10vw;">
+          <label for="exampleInputEmail1"><strong>Username:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ volunteer.user.username }}">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-4" style="width: 11vw;">
+          <label for="exampleInputEmail1"><strong>First Name:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ volunteer.user.first_name }}" style="width: 80vw;">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" style="background-color: #F0FFFF;">
+      <div class="row">
+        <div class="col-md-4" style="width: 11vw;">
+          <label for="lastNameInput"><strong>Last Name:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="text" class="form-control" id="lastNameInput" value="{{ volunteer.user.last_name }}">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-4" style="width: 6vw;">
+          <label for="emailInput"><strong>Email:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="email" class="form-control" id="emailInput" value="{{ volunteer.user.email }}">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" style="background-color: #F0FFFF;">
+      <div class="row">
+        <div class="col-md-4" style="width: 9vw;">
+          <label for="numberInput"><strong>Number:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="text" class="form-control" id="numberInput" value="{{ volunteer.user.number }}">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-4" style="width: 9vw;">
+          <label for="addressInput"><strong>Address:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="text" class="form-control" id="addressInput" value="{{ volunteer.user.address }}">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" style="background-color: #F0FFFF;">
+      <div class="row">
+        <div class="col-md-4" style="width: 12vw;">
+          <label for="gradeLevelInput"><strong>Grade Level:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="text" class="form-control" id="gradeLevelInput" value="{{ volunteer.grade_level }}">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-4" style="width: 16vw;">
+          <label for="volunteerHoursInput"><strong>Volunteer Hours:</strong></label>
+        </div>
+        <div class="col-md-8" style="padding-top: 8px;">
+          <input type="text" class="form-control" id="volunteerHoursInput" value="{{ volunteer.volunteer_hours }}">
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item" style="background-color: #F0FFFF;">
+      <button type="submit" class="btn btn-primary" style="margin: 10px; float: right; width: 10%;">Save</button>
+    </li>
+  </ul>
+
   <!-- Uncomment the following lines if you have the skills, interests, and availability fields -->
   <!-- <p><strong>Skills:</strong> {{ volunteer.skills }}</p>
   <p><strong>Interests:</strong> {{ volunteer.interests }}</p>
