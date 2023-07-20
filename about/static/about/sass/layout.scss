@@ -7,8 +7,6 @@
     box-sizing: border-box;
 }
 
-
-
 body {
     font-family: $font;
 }
@@ -63,7 +61,6 @@ nav a::before {
     flex-wrap: wrap;
 }
 
-
 header::after {
     content: '';
     display: table;
@@ -86,7 +83,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #000;
+    color: #0B0B45 ;
 }
 
 nav a::before {
