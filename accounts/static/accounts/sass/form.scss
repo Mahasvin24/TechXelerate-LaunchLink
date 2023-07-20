@@ -1,0 +1,20 @@
+@import '../../../../about/static/about/css/theme.css';
+
+#profile-title {
+  box-sizing: border-box;
+  background-color: beige;
+  display: inline-block;
+}
+
+.profile-info {
+  display: inline-block;
+}
+
+.list-group-item {
+  background-color: #F0FFFF;
+  font-size: 30px;
+}
+
+#save-button {
+  margin-bottom: 10px;
+}
