@@ -35,7 +35,12 @@
                     <div class="menu" style="margin-top: 10px;">
                     <li><a href="{% url 'about:home' %}">Home</a></li>
                     <li><a href="{% url 'projects:dashboard' %}">Dashboard</a></li>
-                    <li><a href="{% url 'about:home' %}">Contact</a></li>
+                    {% if request.user.is_client %}
+                        <li><a href="{% url 'projects:new-request' %}">Create Project</a></li>
+                        <li><a href="{% url 'accounts:new-business' %}">Create Business</a></li>
+                    {% else %}
+                        <li><a href="{% url 'projects:requests' %}">Pending Requests</a></li>
+                    {% endif %}
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
                     {% else %}
@@ -47,14 +52,16 @@
 
         {% endblock nav %}
         {% block space %}
-            <div style="height: 100px;"></div>
+            <div style="height: 130px;"></div>
         {% endblock space %}
 
-
         {% block body %}
-        {% endblock %}
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+
+        {% endblock body %}
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+        
         {% block js %}
         {% endblock js %}
     </body>

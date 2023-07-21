@@ -76,3 +76,10 @@ class Task(models.Model):
 
     def __str__(self):
         return(self.task_name)
+
+class VolunteerLog(models.Model):
+    volunteer = models.ForeignKey('accounts.Volunteer', on_delete=models.CASCADE)
+    project = models.ForeignKey('projects.Project', on_delete=models.CASCADE) 
+    date = models.DateField()
+    hours = models.DecimalField(max_digits=3, decimal_places=1)
+    description = models.TextField()

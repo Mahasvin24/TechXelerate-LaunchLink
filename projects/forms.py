@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import ProjectRequest, Project, Task
+from .models import ProjectRequest, Project, Task, VolunteerLog
 from django.apps import apps
 Business = apps.get_model('accounts', 'Business')
 Client = apps.get_model('accounts', 'Client')
@@ -9,6 +9,24 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 import pprint
 
+
+class VolunteerLogForm(forms.ModelForm):
+    hours = forms.DecimalField(max_digits=3, decimal_places=1)
+    description = forms.Textarea()
+    class Meta:
+        model = VolunteerLog
+        fields = ['hours', 'description']
+        
+    def __init__(self, *args, **kwargs):
+        self.project = kwargs.pop('project_id', None)
+        super(ProjectRequestForm, self).__init__(*args, **kwargs)
+    def save(self, commit=True):
+        volunteer_log = super(VolunteerLogForm, self).save(commit=False)
+        volunteer_log.project = Project.objects.get(id=self.project)
+        volunteer_log.save(commit)
+        return volunteer_log
+    
+        
 class ProjectRequestForm(forms.ModelForm):
     title = forms.CharField(max_length=100)
     description = forms.Textarea()
@@ -17,13 +35,12 @@ class ProjectRequestForm(forms.ModelForm):
     
     class Meta:
         model = ProjectRequest
-        fields = ['title', 'description', 'is_business']
+        fields = ['is_business', 'business', 'title', 'description']
     
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(ProjectRequestForm, self).__init__(*args, **kwargs)
         if self.user is not None:
-
             self.fields['business'].queryset = Business.objects.filter(user=Client.objects.get(user=self.user)) 
             
     def save(self, commit=True):

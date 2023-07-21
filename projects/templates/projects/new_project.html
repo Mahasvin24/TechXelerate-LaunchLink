@@ -4,6 +4,34 @@
 
 {% block body %}
     {{ created }}
+    <h1>Project Request:</h1>
+    <div class="project-request">
+        <h2>{{ project_request.title }}</h2>
+        <p>
+            <b>Description:</b> {{ project_request.description }}
+        </p>
+        <p>
+            <b>Status:</b> {{ project_request.get_status_display }}
+        </p>
+        <p>
+            <b>Created:</b> {{ project_request.created|date:"M d, Y" }}
+        </p>
+        <p>
+            <b>Updated:</b> {{ project_request.updated|date:"M d, Y" }}
+        </p>
+        {% if project_request.is_business %}
+            <p>
+                <b>Business:</b> {{ project_request.business.name }}
+            </p>
+        {% else %}
+            <p>
+                {% if project_request.client %}
+                    <b>Client:</b> 
+                    {{ project_request.client }}
+                {% endif %}
+            </p>
+        {% endif %}
+    </div>
     <form method="post">
         {% csrf_token %}
         {{ form }}
