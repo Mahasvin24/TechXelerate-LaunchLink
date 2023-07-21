@@ -21,7 +21,7 @@
   font-size: 3.5vw;
 }
 
-#intro-container p {
+#intro-container p.intro {
   font-size: 80px;
   font-weight: 600;
 }
@@ -40,6 +40,37 @@
 footer {
   text-align: center;
   border: 3px green;
+}
+
+.double-buttons .btn {
+  width: 15rem;
+  height: 4rem;
+  border-radius: 1rem;
+  box-shadow: 0.3rem 0.3rem 0.6rem #656873, -0.2rem -0.2rem 0.5rem gray;
+  justify-self: center;
+  display: relative;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  vertical-align: middle;
+  grid-column: 1/2;
+  grid-row: 4/5;
+  background: #6d5dfc;
+  box-shadow: inset 0.2rem 0.2rem 1rem #8abdff, inset -0.2rem -0.2rem 1rem #5b0eeb, 0.3rem 0.3rem 0.6rem #656873, -0.2rem -0.2rem 0.5rem gray;
+  color: #E4EBF5;
+}
+.double-buttons .btn:hover {
+  color: white;
+}
+.double-buttons .btn:active {
+  box-shadow: inset 0.2rem 0.2rem 1rem #5b0eeb, inset -0.2rem -0.2rem 1rem #8abdff;
+}
+.double-buttons .btn p {
+  font-size: 1.2rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 /*# sourceMappingURL=home.css.map */

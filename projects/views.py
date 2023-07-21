@@ -5,12 +5,17 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from pprint import pprint
 from django.contrib.auth.decorators import login_required
-from .forms import ProjectRequestForm, ProjectForm, TaskForm
+from .forms import ProjectRequestForm, ProjectForm, TaskForm, VolunteerLogForm
 from django.apps import apps
 Client = apps.get_model('accounts', 'Client')
 from .models import ProjectRequest, Project, Task
 
 # Create your views here.
+
+def requests(request):
+    return render(request, 'projects/requests.html', {
+        'requests' : ProjectRequest.objects.exclude(status = '3'),
+    })
 
 def dashboard(request):
     return render(request, 'projects/project_dashboard.html', {
@@ -21,9 +26,15 @@ def dashboard(request):
 def project_view(request, project_id):
     if Project.objects.filter(id=project_id).exists():
         project = Project.objects.get(id=project_id)
-        return render(request, 'projects/project_view.html', {
-            'project' : project
-        })
+        context = {
+            'project' : project,
+        }
+        if request.user.is_volunteer:
+            context['hour_form'] = VolunteerLogForm()
+        if project.managers.filter(id=request.user.id).exists():
+            context['task_form'] = TaskForm()
+
+        return render(request, 'projects/project_view.html', context)
     else:
         return redirect('about:home')
 
@@ -38,7 +49,8 @@ def new_project(request, request_id):
                 created = True
                 context = {'created' : created}
                 return render(request, 'projects/new_project.html', {
-                    'created' : created
+                    'created' : created,
+                    'project' : project
                 })
             else:
                 return render(request, 'projects/new_project.html', context)
@@ -46,10 +58,11 @@ def new_project(request, request_id):
             form = ProjectForm(**{'request_id': request_id})
             context = {
                 'form' : form,
+                'project_request' : ProjectRequest.objects.get(id=request_id),
             }
             return render(request, 'projects/new_project.html', context)
     else:
-        return redirect('about:home')
+        return redirect('projects:dashboard')
     
 @login_required
 def new_request(request):
@@ -61,9 +74,7 @@ def new_request(request):
                 req = form.save()
                 created = True
                 context = {'created' : created}
-                return render(request, 'projects/new_request.html', {
-                    'created' : created
-                })
+                return redirect('projects:dashboard')
             else:
                 return render(request, 'projects/new_request.html', context)
         else:

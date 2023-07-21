@@ -32,7 +32,7 @@
 <div id="intro-container">
   <img src="{% static 'about/images/boat.jpg' %}" alt="Welcome Image" style="width:100%; height: 100vh;">
   <div id="intro-centered" style="padding-top: 50px; width: max-content;"> 
-    <p>
+    <p class="intro">
       {% if user.is_authenticated %}
         Hi,&nbsp;<span class="special-text">{{ user.first_name|capfirst }}</span>!
       {% else %}
@@ -42,6 +42,26 @@
       <span class="special-text auto-type"></span>
       <hr style="border: 2px solid black;">
     </p>
+    {% if user.is_authenticated %}
+      {% if user.is_volunteer %}
+        <div class="double-buttons">
+          <div class="btn" onclick="window.location.href='{% url 'projects:requests' %}'"><p>View Project Requests</p></div>
+          <div class="btn" onclick="window.location.href='{% url 'projects:dashboard' %}'"><p>View Open Projects</p></div>
+        </div>
+      {% else %}
+        <div class="double-buttons">
+          <div class="btn" onclick="window.location.href='{% url 'projects:new-request' %}'"><p>Request a Project!</p></div>
+          <div class="btn" onclick="window.location.href='{% url 'accounts:new-business' %}'"><p>Create your Business</p></div>
+        </div>
+      {% endif %}
+     
+    {% else %}
+      <div class="double-buttons">
+        <div class="btn" onclick="window.location.href='{% url 'accounts:new-volunteer' %}'"><p>Be a Volunteer</p></div>
+        <div class="btn" onclick="window.location.href='{% url 'projects:new-request' %}'"><p>Request a Project!</p></div>
+      </div>
+    {% endif %}
+    
   </div>
 </div> 
 

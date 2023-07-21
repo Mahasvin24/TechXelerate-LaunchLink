@@ -1,0 +1,54 @@
+{% extends "about/layout.html" %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'accounts/css/form.css' %}">
+{% endblock head %}
+{% block js %}
+{% endblock js %}
+{% block nav %}
+{% endblock nav %}
+{% block body %}
+  <div class="row" id="client-form">
+    <div class="col-md-12">
+    <form
+            method="post"
+            enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Be a Volunteer!</h1>
+        {{ form.errors }}
+        <fieldset>
+        <legend>
+            <span class="number">1</span> Create Your Account
+        </legend>
+        <label>Username:</label>
+        {{ form.username }}
+        <label>Password:</label>
+        {{ form.password1 }}
+        <label>Password Confirmation:</label>
+        {{ form.password2 }}
+        </fieldset>
+        <fieldset>
+        <legend>
+            <span class="number">2</span> Your Basic Info
+        </legend>
+        <label>First Name:</label>
+        {{ form.first_name }}
+        <label>Last Name:</label>
+        {{ form.last_name }}
+        <label>Grade:</label>
+        {{ form.grade }}
+        <label>Email:</label>
+        {{ form.email }}
+        <label>Phone Number:</label>
+        {{ form.phone_number }}
+        <label>Address:</label>
+        {{ form.address }}
+        <label>Profile Picture:</label>
+        {{ form.img }}
+        </fieldset>
+        <button type="submit">Sign Up</button>
+        <p class="bottom-text">Have an account? <a href="{% url 'accounts:new-client' %}">Log In</a></p>
+    </form>
+    </div>
+  </div>
+{% endblock body %}

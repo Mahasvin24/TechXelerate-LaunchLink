@@ -1,12 +1,27 @@
 {% extends 'about/layout.html' %}
 {% load static %}
 {% load bootstrap5 %}
-
+{% block head %}
+    <link rel="stylesheet" href="{% static 'accounts/css/form.css' %}">
+{% endblock head %}
 {% block body %}
     {{ created }}
-    <form action="{% url 'projects:new-request' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create">
-    </form>
+
+    <div class="row" id="client-form">
+        <div class="col-md-12">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h1>Request Project</h1>
+                {{ form.errors }}
+                <fieldset>
+                    <legend>
+                        <span class="number">1</span>Request Info
+                    </legend>
+                    {{ form }}
+                </fieldset>
+                <button type="submit">Request</button>
+            </form>
+        </div>
+    </div>
+
 {% endblock body %}

@@ -1,0 +1,19 @@
+{% extends 'about/layout.html' %} 
+
+{% block body %}
+<div class="dashboard">
+  <div class="dashboard-content">
+    <div class="project-requests">
+      {% for request in requests %}
+      <div class="project-card">
+        <h3>{{ request.title }}</h3>
+        <p>Status: {{ request.status }}</p>
+        <p>{{ request.client }}</p>
+        <a href="{% url 'projects:new-project' request.id %}">Accept Request</a>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+{% endblock body %}
