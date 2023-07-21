@@ -19,7 +19,7 @@ class VolunteerLogForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         self.project = kwargs.pop('project_id', None)
-        super(ProjectRequestForm, self).__init__(*args, **kwargs)
+        super(VolunteerLogForm, self).__init__(*args, **kwargs)
     def save(self, commit=True):
         volunteer_log = super(VolunteerLogForm, self).save(commit=False)
         volunteer_log.project = Project.objects.get(id=self.project)

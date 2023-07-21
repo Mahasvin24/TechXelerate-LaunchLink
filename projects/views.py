@@ -48,10 +48,7 @@ def new_project(request, request_id):
                 project = form.save()
                 created = True
                 context = {'created' : created}
-                return render(request, 'projects/new_project.html', {
-                    'created' : created,
-                    'project' : project
-                })
+                return redirect('projects:dashboard')
             else:
                 return render(request, 'projects/new_project.html', context)
         else:

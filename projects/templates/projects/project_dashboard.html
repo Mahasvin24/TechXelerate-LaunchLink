@@ -21,6 +21,7 @@
         <h3>{{ project.project_request.title }}</h3>
         <p>Last Updated: {{ project.updated }}</p>
         <p>Status: {{ project.status }}</p>
+        <a href="{% url 'projects:project-view' project.id %}">View More</a>
       </div>
       {% endfor %}
     </div>
@@ -30,6 +31,7 @@
       <div class="project-card">
         <h3>{{ project.title }}</h3>
         <p>Date Completed: {{ project.updated }}</p>
+        <a href="{% url 'projects:project-view' project.id %}">View More</a>
       </div>
       {% endfor %}
     </div>
