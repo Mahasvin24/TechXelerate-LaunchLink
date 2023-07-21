@@ -27,7 +27,9 @@
     <li class="list-group-item" style="background-color: #F0FFFF;">
       <div class="row">
         <div class="col-md-4" style="width: 10vw;">
-          <label for="exampleInputEmail1"><strong>Username:</strong></label>
+          <label for="exampleInputEmail1">
+            <strong>Username:</strong>
+          </label>
         </div>
         <div class="col-md-8" style="padding-top: 8px;">
           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ volunteer.user.username }}">
@@ -108,8 +110,6 @@
       <button type="submit" class="btn btn-primary" style="margin: 10px; float: right; width: 10%;">Save</button>
     </li>
   </ul>
-  
-  <br>
 
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -119,18 +119,51 @@
 
   <br>
 
-  <div class="container-fluid" id="projects-managed">
-    
+  <div class="container">
+    <div class="row" id="project-card-container">
+      {% for project in volunteer.projects_managed.all %}
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ project.project_request.title }}</h5>
+            <p class="card-text">{{ project.project_request.description }}</p>
+            <p class="card-text">{{ project.get_status_display }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
+
+  <hr>
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Projects Developed</h1>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="container">
+    <div class="row" id="project-card-container">
+      {% for project in volunteer.projects_developed.all %}
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ project.project_request.title }}</h5>
+            <p class="card-text">{{ project.project_request.description }}</p>
+            <p class="card-text">{{ project.get_status_display }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <hr>
   
-  
-  
-  
-  
-   <!-- Uncomment the following lines if you have the skills, interests, and availability fields -->
-  <!-- <p><strong>Skills:</strong> {{ volunteer.skills }}</p>
-  <p><strong>Interests:</strong> {{ volunteer.interests }}</p>
-  <p><strong>Availability:</strong> {{ volunteer.availability }}</p> -->
+  <!--
   <h2>Projects Managed</h2>
   {% for project in volunteer.projects_managed.all %}
     <p><strong>Title:</strong> {{ project.project_request.title }}</p>
@@ -143,4 +176,5 @@
     <p><strong>Description:</strong> {{ project.project_request.description }}</p>
     <p><strong>Status:</strong> {{ project.get_status_display }}</p>
   {% endfor %}
+  -->
 {% endblock body %}
