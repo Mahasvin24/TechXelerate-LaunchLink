@@ -11,6 +11,7 @@ import pprint
 
 
 class VolunteerLogForm(forms.ModelForm):
+    is_log = forms.BooleanField(initial=True, widget=forms.HiddenInput())
     hours = forms.DecimalField(max_digits=3, decimal_places=1)
     description = forms.Textarea()
     class Meta:
@@ -19,11 +20,15 @@ class VolunteerLogForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         self.project = kwargs.pop('project_id', None)
+        self.volunteer = kwargs.pop('user', None)
         super(VolunteerLogForm, self).__init__(*args, **kwargs)
+        
     def save(self, commit=True):
         volunteer_log = super(VolunteerLogForm, self).save(commit=False)
         volunteer_log.project = Project.objects.get(id=self.project)
-        volunteer_log.save(commit)
+        volunteer_log.volunteer = Volunteer.objects.get(user=self.volunteer)
+        if commit:
+            volunteer_log.save()
         return volunteer_log
     
         
@@ -90,22 +95,28 @@ class ProjectForm(forms.ModelForm):
             for m in managers:
                 project.managers.add((m))
             project.save()
+            request = ProjectRequest.objects.get(id=self.request_id)
+            request.status = ProjectRequest.PENDING
+            request.save()
             
         return project
     
 class TaskForm(forms.ModelForm):
-    
-    assign = forms.ModelMultipleChoiceField(queryset=Volunteer.objects.all(), widget=forms.CheckboxSelectMultiple)
+    is_task = forms.BooleanField(initial=True, widget=forms.HiddenInput())
+    assign = forms.ModelMultipleChoiceField(queryset=Volunteer.objects.all(), widget=forms.SelectMultiple)
     task_name = forms.CharField(max_length=100)
     task_description = forms.Textarea()
     
     class Meta:
         model = Task
-        fields = ['task_name', 'task_description', 'assign']
+        fields = ['assign', 'task_name', 'task_description']
     
     def __init__(self, *args, **kwargs):
         self.project_id = kwargs.pop('project_id', None)
         super(TaskForm, self).__init__(*args, **kwargs)
+        tmp = Project.objects.get(id=self.project_id).managers.all() | Project.objects.get(id=self.project_id).developers.all()
+        self.fields['assign'].queryset = tmp.distinct('id')
+        
     
     def is_valid(self) -> bool:
         if self.project_id is None:
@@ -117,6 +128,10 @@ class TaskForm(forms.ModelForm):
         task.project = Project.objects.get(id=self.project_id)
         
         if commit:
+            task.save()
+            assigned = self.cleaned_data['assign']
+            for a in assigned:
+                task.assign.add((a))
             task.save()
         
         return task

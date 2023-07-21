@@ -13,14 +13,14 @@
         <p>   
             <b>Managers:</b>
             {% for manager in project.managers.all %}
-            {{ manager.user.username }},
+                <a href="{% url 'accounts:volunteer-profile' manager.id %}">{{ manager.user.username }}</a>
             {% endfor %}
         </p>
 
         <p>
             <b>Developers:</b>
             {% for developer in project.developers.all %}
-            {{ developer.user.username }},
+                <a href="{% url 'accounts:volunteer-profile' developer.id %}">{{ developer.user.username }}</a>
             {% endfor %}
         </p>
 
@@ -53,9 +53,22 @@
                 {% endif %}
             </p>
         {% endif %}
-        
-
     </div>
+
+    {% if task_form %}
+        <form method="post">
+            {% csrf_token %}
+            {{ task_form.as_p }}
+            <input type="submit" value="Create">
+        </form>
+    {% endif %}
+    {% if hour_form %}
+        <form method="post">
+            {% csrf_token %}
+            {{ hour_form.as_p }}
+            <input type="submit" value="Create">
+        </form>
+    {% endif %}
 
 
 {% endblock body %}

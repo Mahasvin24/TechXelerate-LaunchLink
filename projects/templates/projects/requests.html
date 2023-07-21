@@ -7,7 +7,7 @@
       {% for request in requests %}
       <div class="project-card">
         <h3>{{ request.title }}</h3>
-        <p>Status: {{ request.status }}</p>
+        <p>Status: {{ request.get_status_display }}</p>
         <p>{{ request.client }}</p>
         <a href="{% url 'projects:new-project' request.id %}">Accept Request</a>
       </div>

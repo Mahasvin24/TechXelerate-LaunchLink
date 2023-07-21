@@ -1,40 +1,103 @@
-{% extends 'about/layout.html' %} 
-
+{% extends 'about/layout.html' %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'projects/css/card.css' %}">
+{% endblock head %}
 {% block body %}
-<div class="dashboard">
-  <div class="dashboard-header">
-    <div class="header-item">
-      <h2>Projects In Progress</h2>
-      <p>{{ projects_in_progress|length }}</p>
-    </div>
+  <div id="project-dashboard">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ projects_in_progress.count }} Active Projects</strong>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            {% for project in projects_in_progress %}
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card mx-2">
+                  <div class="card-body">
+                    <div class="h4 m-0">
+                      {{ project.project_request.title }}
+                      {% if project.status == '1' %}
+                        <p style="font-size: 18px;">
+                          Status: <span class="text-right lead text-warning">Finding Volunteers</span>
+                        </p>
+                      {% elif project.status == '2' %}
+                        <p class="text-right lead text-primary">Working</p>
+                      {% elif project.status == '3' %}
+                        <p class="text-right lead text-info">Final Touches</p>
+                      {% else %}
+                        <p class="text-right lead text-success">Completed</p>
+                      {% endif %}
+                    </div>
+                    <small class="text-muted">Description: {{ project.project_request.description|truncatechars:60 }}</small>
+                    {% if project.project_request.business %}
+                      Requested by: <a href="{% url 'accounts:business-profile' project.project_request.business.id %}">{{ project.project_request.business.name }}</a>
+                    {% else %}
+                      <p>
+                        Requested by: <a href="{% url 'accounts:client-profile' project.project_request.client.id %}">{{ project.project_request.client }}</a>
+                      </p>
+                    {% endif %}
+                    
+                    <p>{{project.managers.count}} {{ project.managers.count|pluralize:"Manager,Managers" }} - {{project.developers.count}} {{ project.developers.count|pluralize:"Developer,Developers" }}</p>
+                    <small>{{ project.updated|date:"M d, Y" }}</small>
+                    <a class="btn btn-primary" href="{% url 'projects:project-view' project.id %}">View Details</a>
 
-    <div class="header-item">
-      <h2>Completed Projects</h2>
-      <p>{{ completed_projects|length }}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ completed_projects.count }} Completed Projects</strong>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            {% for project in completed_projects %}
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card mx-2">
+                  <div class="card-body">
+                    <div class="h4 m-0">
+                      {{ project.project_request.title }}
+                      {% if project.status == '1' %}
+                        <p style="font-size: 18px;">
+                          Status: <span class="text-right lead text-warning">Finding Volunteers</span>
+                        </p>
+                      {% elif project.status == '2' %}
+                        <p class="text-right lead text-primary">Working</p>
+                      {% elif project.status == '3' %}
+                        <p class="text-right lead text-info">Final Touches</p>
+                      {% else %}
+                        <p class="text-right lead text-success">Completed</p>
+                      {% endif %}
+                    </div>
+                    <small class="text-muted">Description: {{ project.project_request.description|truncatechars:60 }}</small>
+                    {% if project.project_request.business %}
+                      Requested by: <a href="{% url 'accounts:business-profile' project.project_request.business.id %}">{{ project.project_request.business.name }}</a>
+                    {% else %}
+                      <p>
+                        Requested by: <a href="{% url 'accounts:client-profile' project.project_request.client.id %}">{{ project.project_request.client }}</a>
+                      </p>
+                    {% endif %}
+                    
+                    <p>{{project.managers.count}} {{ project.managers.count|pluralize:"Manager,Managers" }} - {{project.developers.count}} {{ project.developers.count|pluralize:"Developer,Developers" }}</p>
+                    <small>Completed on: {{ project.updated|date:"M d, Y" }}</small>
+                    <a class="btn btn-primary" href="{% url 'projects:project-view' project.id %}">View Details</a>
+
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <br>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="dashboard-content">
-    <div class="projects-in-progress">
-      {% for project in projects_in_progress %}
-      <div class="project-card">
-        <h3>{{ project.project_request.title }}</h3>
-        <p>Last Updated: {{ project.updated }}</p>
-        <p>Status: {{ project.status }}</p>
-        <a href="{% url 'projects:project-view' project.id %}">View More</a>
-      </div>
-      {% endfor %}
-    </div>
-
-    <div class="completed-projects">
-      {% for project in completed_projects %}
-      <div class="project-card">
-        <h3>{{ project.title }}</h3>
-        <p>Date Completed: {{ project.updated }}</p>
-        <a href="{% url 'projects:project-view' project.id %}">View More</a>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
 {% endblock body %}

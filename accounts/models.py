@@ -1,14 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
-
+from django.db.models import Sum
 class User(AbstractUser):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(max_length=254)
     number = PhoneNumberField(blank=True)
-    img = models.ImageField(upload_to='avatars', blank=True, default='accounts/blank_profile.png')
+    img = models.ImageField(upload_to='avatars', default='accounts/blank_profile.png')
     address = models.CharField(max_length=150)
     is_volunteer = models.BooleanField(default=False)
     is_client = models.BooleanField(default=False)
@@ -18,13 +18,16 @@ class User(AbstractUser):
 class Volunteer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='volunteer')
     grade_level = models.IntegerField()
-    volunteer_hours = models.IntegerField(default = 0)
+    # volunteer_hours = models.IntegerField(default = 0)
     # skills = models.TextField()
     # interests = models.TextField()
     # availability = models.TextField()  
 
     def __str__(self):
         return self.user.username
+    
+    def get_hours(self):
+        return self.logs.aggregate(total_hours=Sum('hours')).get('total_hours') or 0
     
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='requester')

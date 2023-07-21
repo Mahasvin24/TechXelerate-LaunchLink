@@ -7,7 +7,7 @@ class ProjectRequest(models.Model):
     VERIFIED = "2"
     REJECTED = "3"
     request_status = (
-        (PENDING, 'Pending'),
+        (PENDING, 'Pending Verification'),
         (VERIFIED, 'Verified'),
         (REJECTED, 'Rejected'),
     )
@@ -78,8 +78,8 @@ class Task(models.Model):
         return(self.task_name)
 
 class VolunteerLog(models.Model):
-    volunteer = models.ForeignKey('accounts.Volunteer', on_delete=models.CASCADE)
+    volunteer = models.ForeignKey('accounts.Volunteer', on_delete=models.CASCADE, related_name='logs')
     project = models.ForeignKey('projects.Project', on_delete=models.CASCADE) 
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     hours = models.DecimalField(max_digits=3, decimal_places=1)
     description = models.TextField()
