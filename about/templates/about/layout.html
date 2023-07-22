@@ -39,8 +39,9 @@
                     {% if request.user.is_client %}
                         <li><a href="{% url 'projects:new-request' %}">Create Project</a></li>
                         <li><a href="{% url 'accounts:new-business' %}">Create Business</a></li>
-                    {% else %}
-                        
+                    {% elif request.user.is_volunteer %}
+                        <li><a href="">My Tasks</a></li>
+                        <li><a href="">My Hours</a></li>
                     {% endif %}
                     <li><a href="{% url 'projects:requests' %}">Pending Requests</a></li>
                     {% if request.user.is_authenticated %}
