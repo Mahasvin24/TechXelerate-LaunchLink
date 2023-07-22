@@ -1,39 +1,207 @@
 {% extends 'about/layout.html' %}
 {% load static %}
-
+{% block head %}
+  <link rel="stylesheet" href="{% static 'projects/css/card.css' %}">
+{% endblock head %}
 {% block body %}
-  <h1>Client Details</h1>
-  <p><strong>Username:</strong> {{ client.user.username }}</p>
-  <p><strong>First Name:</strong> {{ client.user.first_name }}</p>
-  <p><strong>Last Name:</strong> {{ client.user.last_name }}</p>
-  <p><strong>Email:</strong> {{ client.user.email }}</p>
-  <p><strong>Number:</strong> {{ client.user.number }}</p>
-  <p><strong>Address:</strong> {{ client.user.address }}</p>
-  <!-- Uncomment the following lines if you have the image field -->
-  <!-- <div>
-    <img src="{{ client.user.img.url }}" alt="Client Image">
-  </div> -->
-
-  <h2>Businesses</h2>
-  {% if client.businesses.all %}
-    {% for business in client.businesses.all %}
-        <h2>Business Information</h2>
-        <p><strong>Name:</strong> {{ business.name }}</p>
-        <p><strong>Description:</strong> {{ business.description }}</p>
-        <p><strong>Address:</strong> {{ business.address }}</p>
-    {% endfor %}
-  {% else %}
-    <p>This client does not have a associated business.</p>
-  {% endif %}
-
-  <h2>Projects Requested</h2>
-  {% for project_request in client.requests.all %}
-    {% if project_request.project.all %}
-        {% for project in project_request.project.all %}
-            <p><strong>Title:</strong> {{ project_request.title }}</p>
-            <p><strong>Description:</strong> {{ project_request.description }}</p>
-            <p><strong>Status:</strong> {{ project_request.get_status_display }}</p>
-        {% endfor %}
-    {% endif %}
-  {% endfor %}
+  <div class="dashboard" id="boot">
+    <img src="{{ client.user.img.url }}"
+         alt=""
+         style="width: 150px;
+                height: 150px;
+                border-radius: 50%">
+    <h1>@{{ client.user.username }}</h1>
+    <br>
+    <div class="container project-card">
+      <div style="display: flex;">
+        <div style="width: 50%;">
+          <h3>Details</h3>
+          <table class="table align-items-center mb-0">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Name:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ client.user.first_name }} {{ client.user.last_name }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Email:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ client.user.email }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Number:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ client.user.number }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Address:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ client.user.address }}</h6>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="flex-grow: 1;">
+          <h3>{{ client.businesses.count|pluralize:"Business,Businesses" }}</h3>
+          <div class="dashboard-content">
+            {% for business in client.businesses.all %}
+              <div>
+                <div class="card mx-2">
+                  <div class="card-body d-flex justify-content-between align-items-center">
+                    <img src="{{ business.user.user.img.url }}"
+                         alt=""
+                         style="width: 50px;
+                                height: 50px;
+                                border-radius: 50%">
+                    <div style="flex-grow: 1">
+                      <h5 class="card-title">
+                        <a href="{% url 'accounts:business-profile' business.id %}">{{ business.name }}</a>
+                      </h5>
+                      <p class="card-text">{{ business.address }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <br>
+      </div>
+      {% if request_accepted or request_rejected %}
+        <br>
+        <h2>Projects Requested</h2>
+        <div class="dashboard">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>{{ request_accepted.count }} Active Requests</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  {% for request in request_accepted %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <div class="card mx-2">
+                        <div class="card-body">
+                          <div class="h4 m-0">
+                            {{ request.title }}
+                            {% if request.status == '1' %}
+                              <p class="text-right lead text-warning">Pending Verification</p>
+                            {% elif request.status == '2' %}
+                              <p class="text-right lead text-success">Verified</p>
+                            {% elif request.status == '3' %}
+                              <p class="text-right lead text-danger">Rejected</p>
+                            {% endif %}
+                          </div>
+                          <small class="text-muted">Description: {{ request.description|truncatechars:60 }}</small>
+                          {% if request.business %}
+                            <p>
+                              Requested by: <a href="{% url 'accounts:business-profile' request.business.id %}">{{ request.business.name }}</a>
+                            </p>
+                          {% else %}
+                            <p>
+                              Requested by: <a href="{% url 'accounts:client-profile' request.client.id %}">{{ request.client }}</a>
+                            </p>
+                          {% endif %}
+                          <small>{{ request.updated|date:"M d, Y" }}</small>
+                          {% if request.status == '1' %}
+                            {% if user.is_volunteer %}
+                              <div>
+                                <a class="btn btn-danger"
+                                   href="{% url 'projects:reject-request' request.id %}">Reject</a>
+                              </div>
+                            {% endif %}
+                          {% else %}
+                            <a class="btn btn-primary"
+                               href="{% url 'projects:project-view' request.id %}">View Details</a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <br>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>{{ request_rejected.count }} Rejected Requests</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  {% for request in request_rejected %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <div class="card mx-2">
+                        <div class="card-body rejected">
+                          <div class="h4 m-0">
+                            {{ request.title }}
+                            {% if request.status == '1' %}
+                              <p class="text-right lead text-warning">Pending Verification</p>
+                            {% elif request.status == '2' %}
+                              <p class="text-right lead text-success">Verified</p>
+                            {% elif request.status == '3' %}
+                              <p class="text-right lead text-danger">Rejected</p>
+                            {% endif %}
+                          </div>
+                          <small class="text-muted">Description: {{ request.description|truncatechars:60 }}</small>
+                          {% if request.business %}
+                            <p>
+                              Requested by: <a href="{% url 'accounts:business-profile' request.business.id %}">{{ request.business.name }}</a>
+                            </p>
+                          {% else %}
+                            <p>
+                              Requested by: <a href="{% url 'accounts:client-profile' request.client.id %}">{{ request.client }}</a>
+                            </p>
+                          {% endif %}
+                          <small>{{ request.updated|date:"M d, Y" }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 {% endblock body %}

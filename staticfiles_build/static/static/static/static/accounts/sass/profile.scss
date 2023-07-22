@@ -1,0 +1,20 @@
+@import '../../../../about/static/about/sass/theme.scss';
+
+.project-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+ul {
+  font-size: 30px;
+}
+
