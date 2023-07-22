@@ -38,37 +38,40 @@ def project_view(request, project_id):
             'project' : project,
             'tasks' : Task.objects.filter(project=project_id),
         }
-        if request.method == 'POST' and request.user.is_volunteer:
-            if 'is_task' in request.POST:
-                form = TaskForm(request.POST, **{'project_id': project_id})
-                if form.is_valid():
-                    task = form.save()
-                    return redirect('projects:dashboard')
+        if request.user.is_authenticated:
+            if request.method == 'POST' and request.user.is_volunteer:
+                if 'is_task' in request.POST:
+                    form = TaskForm(request.POST, **{'project_id': project_id})
+                    if form.is_valid():
+                        task = form.save()
+                        return redirect('projects:dashboard')
+                    else:
+                        if request.user.is_volunteer:
+                            context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
+                        if request.user.is_volunteer and Volunteer.objects.get(user=request.user).projects_managed.filter(id=project_id).exists():
+                            context['task_form'] = TaskForm(**{'project_id': project_id})
+                        return render(request, 'projects/project_view.html', context)
                 else:
-                    if request.user.is_volunteer:
-                        context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
-                    if request.user.is_volunteer and Volunteer.objects.get(user=request.user).projects_managed.filter(id=project_id).exists():
-                        context['task_form'] = TaskForm(**{'project_id': project_id})
-                    return render(request, 'projects/project_view.html', context)
+                    form = VolunteerLogForm(request.POST, **{'project_id': project_id, 'user': request.user})
+                    if form.is_valid():
+                        volunteer_log = form.save()
+                        return redirect('projects:dashboard')
+                    else:
+                        if request.user.is_volunteer:
+                            context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
+                        if request.user.is_volunteer and Volunteer.objects.get(user=request.user).projects_managed.filter(id=project_id).exists():
+                            context['task_form'] = TaskForm(**{'project_id': project_id})
+                        return render(request, 'projects/project_view.html', context)
             else:
-                form = VolunteerLogForm(request.POST, **{'project_id': project_id, 'user': request.user})
-                if form.is_valid():
-                    volunteer_log = form.save()
-                    return redirect('projects:dashboard')
-                else:
-                    if request.user.is_volunteer:
-                        context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
-                    if request.user.is_volunteer and Volunteer.objects.get(user=request.user).projects_managed.filter(id=project_id).exists():
-                        context['task_form'] = TaskForm(**{'project_id': project_id})
-                    return render(request, 'projects/project_view.html', context)
+                if request.user.is_volunteer:
+                    context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
+                if request.user.is_volunteer and Volunteer.objects.get(user=request.user).projects_managed.filter(id=project_id).exists():
+                    context['task_form'] = TaskForm(**{'project_id': project_id})
+                return render(request, 'projects/project_view.html', context)
         else:
-            if request.user.is_volunteer:
-                context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
-            if request.user.is_volunteer and Volunteer.objects.get(user=request.user).projects_managed.filter(id=project_id).exists():
-                context['task_form'] = TaskForm(**{'project_id': project_id})
             return render(request, 'projects/project_view.html', context)
     else:
-        return redirect('about:home')
+        return redirect('projects:dashboard')
 
 @login_required
 def new_project(request, request_id):

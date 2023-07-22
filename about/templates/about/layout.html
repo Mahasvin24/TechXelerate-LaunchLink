@@ -40,8 +40,9 @@
                         <li><a href="{% url 'projects:new-request' %}">Create Project</a></li>
                         <li><a href="{% url 'accounts:new-business' %}">Create Business</a></li>
                     {% else %}
-                        <li><a href="{% url 'projects:requests' %}">Pending Requests</a></li>
+                        
                     {% endif %}
+                    <li><a href="{% url 'projects:requests' %}">Pending Requests</a></li>
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
                     {% else %}

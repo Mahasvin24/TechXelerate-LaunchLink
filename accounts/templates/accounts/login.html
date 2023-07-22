@@ -10,8 +10,7 @@
 {% block body %}
   <div class="row" id="client-form">
     <div class="col-md-12">
-      <form
-            method="post"
+      <form method="post"
             enctype="multipart/form-data">
         {% csrf_token %}
         <h1>Log In</h1>
@@ -19,7 +18,7 @@
         <fieldset>
           {{ form.as_p }}
         </fieldset>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Log In</button>
         <p class="bottom-text">Not Registered? <a href="{% url 'accounts:new-client' %}">Create an account</a></p>
       </form>
     </div>
