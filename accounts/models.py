@@ -8,7 +8,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(max_length=254)
     number = PhoneNumberField(blank=True)
-    img = models.ImageField(upload_to='avatars', default='accounts/blank_profile.png')
+    img = models.ImageField(upload_to='avatars', default='avatars/blank_profile.png')
     address = models.CharField(max_length=150)
     is_volunteer = models.BooleanField(default=False)
     is_client = models.BooleanField(default=False)

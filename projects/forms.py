@@ -116,6 +116,8 @@ class TaskForm(forms.ModelForm):
         super(TaskForm, self).__init__(*args, **kwargs)
         tmp = Project.objects.get(id=self.project_id).managers.all() | Project.objects.get(id=self.project_id).developers.all()
         self.fields['assign'].queryset = tmp.distinct('id')
+        self.fields['assign'].widget.attrs = {'class': 'multiselect', 'type': 'text', 'multiple': True, 'role': 'multiselect', 'style': 'height: 100px'}
+        
         
     
     def is_valid(self) -> bool:

@@ -13,9 +13,16 @@ from .models import ProjectRequest, Project, Task
 
 # Create your views here.
 
+def reject_request(request, request_id):
+    if ProjectRequest.objects.filter(id=request_id).exists() and request.user.is_volunteer:
+        project_request = ProjectRequest.objects.get(id=request_id)
+        project_request.status = '3'
+        project_request.save()
+        return redirect('projects:requests')
 def requests(request):
     return render(request, 'projects/requests.html', {
         'requests' : ProjectRequest.objects.exclude(status = '3'),
+        'rejected' : ProjectRequest.objects.filter(status = '3'),
     })
 
 def dashboard(request):
@@ -29,6 +36,7 @@ def project_view(request, project_id):
         project = Project.objects.get(id=project_id)
         context = {
             'project' : project,
+            'tasks' : Task.objects.filter(project=project_id),
         }
         if request.method == 'POST' and request.user.is_volunteer:
             if 'is_task' in request.POST:

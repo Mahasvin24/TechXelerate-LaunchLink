@@ -9,4 +9,5 @@ urlpatterns = [
     path("<int:project_id>", views.project_view, name="project-view"),
     path("dashboard", views.dashboard, name="dashboard"),
     path("requests", views.requests, name="requests"),
+    path("reject-request/<int:request_id>", views.reject_request, name="reject-request"),
 ]
