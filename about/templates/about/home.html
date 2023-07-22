@@ -12,7 +12,7 @@
 
 <!--Navbar-->
 {% comment %} <header>  
-  <nav class="navbar">
+  <nav class="navbar" style="border-bottom: 3px solid black; height: 100px; padding-top: 10px;">
     <!-- Logo + Name-->
     <div class="logo">LaunchLink</div>
     <ul class="nav-links">
@@ -36,7 +36,7 @@
       {% if user.is_authenticated %}
         Hi,&nbsp;<span class="special-text">{{ user.first_name|capfirst }}</span>!
       {% else %}
-        Hi,&nbsp;<span class="special-text">There</span>!
+        Hi!
       {% endif %}
       <br>Welcome to 
       <span class="special-text auto-type"></span>

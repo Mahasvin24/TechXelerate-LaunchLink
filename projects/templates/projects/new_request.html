@@ -24,4 +24,18 @@
         </div>
     </div>
 
+    <script>
+        var checkbox = document.querySelector("input[name=is_business]");
+        document.getElementById("id_business").style.display = "none";
+        document.getElementById("id_business").style.display = "none";
+
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById("id_business").style.display = "block";
+            } else {
+                document.getElementById("id_business").style.display = "none";
+            }
+        });
+    </script>
+
 {% endblock body %}

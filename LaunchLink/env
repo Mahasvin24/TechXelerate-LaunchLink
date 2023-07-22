@@ -1,6 +1,0 @@
-SECRET_KEY="0h32hv%_330g9#wltfu7@3ontie1q*%ygpepfe1w7&z-cx6m$#"
-POSTGRES_USER="postgres"
-POSTGRES_HOST="db.piqioquoflmlbrchwhcj.supabase.co"
-POSTGRES_PASSWORD="SIyvZGc2iILdplNV"
-POSTGRES_NAME="postgres"
-POSTGRES_PORT="5432" 
