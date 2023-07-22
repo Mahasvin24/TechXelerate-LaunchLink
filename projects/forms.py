@@ -35,7 +35,7 @@ class VolunteerLogForm(forms.ModelForm):
 class ProjectRequestForm(forms.ModelForm):
     title = forms.CharField(max_length=100)
     description = forms.Textarea()
-    is_business = forms.BooleanField(initial=False, required=False)
+    is_business = forms.BooleanField(initial=False, required=False, label='')
     business = forms.ModelChoiceField(queryset=None, widget=forms.Select, required=False)
     
     class Meta:

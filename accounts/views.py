@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 import pprint
 from django.contrib.auth.decorators import login_required
 from django.apps import apps
+ProjectRequest = apps.get_model('projects', 'ProjectRequest')
 
 def business_profile(request, business_id):
     if Business.objects.filter(id=business_id).exists():
@@ -32,6 +33,8 @@ def client_profile(request, client_id):
         client = Client.objects.get(id=client_id)
         context = {
             'client' : client,
+            'request_rejected' : ProjectRequest.objects.filter(client=client, status=3),
+            'request_accepted' : ProjectRequest.objects.filter(client=client).exclude(status=3),
         }
         return render(request, 'accounts/client_profile.html', context)
     else:
@@ -42,10 +45,11 @@ def volunteer_profile(request, volunteer_id):
         volunteer = Volunteer.objects.get(id=volunteer_id)
         context = {
             'volunteer' : volunteer,
+            'tasks' : volunteer.tasks_assigned.all(),
         }
         return render(request, 'accounts/volunteer_profile.html', context)
     else:
-        return redirect('about:home')
+        return redirect('projects:dashboard')
     
 
 

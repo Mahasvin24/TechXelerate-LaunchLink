@@ -1,237 +1,244 @@
 {% extends "about/layout.html" %}
 {% load static %}
-
+{% block head %}
+  <link rel="stylesheet" href="{% static 'projects/css/card.css' %}">
+{% endblock head %}
 {% block body %}
   <br>
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <table>
-        <tr>
-          <td style="width: 10%; padding-right: 10px;">
-            <!--<img src="{{ volunteer.user.img.url }}" alt="Volunteer Image">-->
-            <!--Subsitute picture used for testing purposes-->
-            <img src="{% static 'accounts/images/blank_profile.png' %}"
-                 alt="Volunteer Image"
-                 style="width: 100%">
-          </td>
-          <td>
-            <h1 class="display-4">Account Settings</h1>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <br>
-  
-  <ul class="list-group">
-    <li class="list-group-item" style="background-color: #F0FFFF;">
-      <div class="row">
-        <div class="col-md-4" style="width: 10vw;">
-          <label for="exampleInputEmail1">
-            <strong>Username:</strong>
-          </label>
+  <div class="dashboard" id="boot">
+    <img src="{{ volunteer.user.img.url }}"
+         alt=""
+         style="width: 150px;
+                height: 150px;
+                border-radius: 50%">
+    <h1>@{{ volunteer.user.username }}</h1>
+    <br>
+    <div class="container project-card">
+      <div style="display: flex;">
+        <div style="width: 50%;">
+          <h3>Details</h3>
+          <table class="table align-items-center mb-0">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Name:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ volunteer.user.first_name }} {{ volunteer.user.last_name }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Grade:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ volunteer.grade_level }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Volunteer Hours:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ volunteer.get_hours }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Email:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ volunteer.user.email }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Number:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ volunteer.user.number }}</h6>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">Address:</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <h6 class="mb-0 text-xs">{{ volunteer.user.address }}</h6>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="email"
-                 class="form-control"
-                 id="exampleInputEmail1"
-                 aria-describedby="emailHelp"
-                 value="{{ volunteer.user.username }}">
+        <div style="flex-grow: 1;">
+          <h3>Tasks</h3>
+          <ul class="list-group list-group-flush">
+            {% for task in tasks %}
+              {% if task.completed %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <span>
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 16 16"
+                           width="16"
+                           height="16">
+                        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z">
+                        </path>
+                      </svg>
+                    </span>
+                    <strike>{{ task.task_name }}</strike>
+                  </div>
+                  <span style="text-align: right">
+                    <a href="{% url 'projects:project-view' task.project.id %}">{{ task.project.project_request.title }}</a>
+                  </span>
+                </li>
+              {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <span>
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 16 16"
+                           width="16"
+                           height="16">
+                        <path d="M0 7.75A.75.75 0 0 1 .75 7h14.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 7.75Z"></path>
+                      </svg>
+                    </span>&nbsp;
+                    {{ task.task_name }}
+                  </div>
+                  <span style="text-align: right">
+                    <a href="{% url 'projects:project-view' task.project.id %}">{{ task.project.project_request.title }}</a>
+                  </span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
         </div>
+        <br>
       </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-md-4" style="width: 11vw;">
-          <label for="exampleInputEmail1">
-            <strong>First Name:</strong>
-          </label>
-        </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="email"
-                 class="form-control"
-                 id="exampleInputEmail1"
-                 aria-describedby="emailHelp"
-                 value="{{ volunteer.user.first_name }}"
-                 style="width: 80vw">
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item" style="background-color: #F0FFFF;">
-      <div class="row">
-        <div class="col-md-4" style="width: 11vw;">
-          <label for="lastNameInput">
-            <strong>Last Name:</strong>
-          </label>
-        </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text"
-                 class="form-control"
-                 id="lastNameInput"
-                 value="{{ volunteer.user.last_name }}">
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-md-4" style="width: 6vw;">
-          <label for="emailInput">
-            <strong>Email:</strong>
-          </label>
-        </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="email"
-                 class="form-control"
-                 id="emailInput"
-                 value="{{ volunteer.user.email }}">
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item" style="background-color: #F0FFFF;">
-      <div class="row">
-        <div class="col-md-4" style="width: 9vw;">
-          <label for="numberInput">
-            <strong>Number:</strong>
-          </label>
-        </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text"
-                 class="form-control"
-                 id="numberInput"
-                 value="{{ volunteer.user.number }}">
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-md-4" style="width: 9vw;">
-          <label for="addressInput">
-            <strong>Address:</strong>
-          </label>
-        </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text"
-                 class="form-control"
-                 id="addressInput"
-                 value="{{ volunteer.user.address }}">
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item" style="background-color: #F0FFFF;">
-      <div class="row">
-        <div class="col-md-4" style="width: 12vw;">
-          <label for="gradeLevelInput">
-            <strong>Grade Level:</strong>
-          </label>
-        </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text"
-                 class="form-control"
-                 id="gradeLevelInput"
-                 value="{{ volunteer.grade_level }}">
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-md-4" style="width: 16vw;">
-          <label for="volunteerHoursInput">
-            <strong>Volunteer Hours:</strong>
-          </label>
-        </div>
-        <div class="col-md-8" style="padding-top: 8px;">
-          <input type="text"
-                 class="form-control"
-                 id="volunteerHoursInput"
-                 value="{{ volunteer.volunteer_hours }}">
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item" style="background-color: #F0FFFF;">
-      <button type="submit"
-              class="btn btn-primary"
-              style="margin: 10px;
-                     float: right;
-                     width: 10%">Save</button>
-    </li>
-  </ul>
-  
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4">Projects Managed</h1>
-    </div>
-  </div>
-  <br>
-
-  <div class="container">
-    <div class="row" id="project-card-container">
-      {% for project in volunteer.projects_managed.all %}
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">{{ project.project_request.title }}</h5>
-            <p class="card-text">{{ project.project_request.description }}</p>
-            <p class="card-text">{{ project.get_status_display }}</p>
+      {% if volunteer.projects_managed.all %}
+        <br>
+        <h3>Managed Projects</h3>
+        <div class="card-body">
+          <div class="row justify-content-center align-items-center">
+            {% for project in volunteer.projects_managed.all %}
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card mx-2">
+                  <div class="card-body">
+                    <div class="h4 m-0">
+                      {{ project.project_request.title }}
+                      {% if project.status == '1' %}
+                        <p style="font-size: 18px;">
+                          Status: <span class="text-right lead text-warning">Finding Volunteers</span>
+                        </p>
+                      {% elif project.status == '2' %}
+                        <p class="text-right lead text-primary">Working</p>
+                      {% elif project.status == '3' %}
+                        <p class="text-right lead text-info">Final Touches</p>
+                      {% else %}
+                        <p class="text-right lead text-success">Completed</p>
+                      {% endif %}
+                    </div>
+                    <small class="text-muted">Description: {{ project.project_request.description|truncatechars:60 }}</small>
+                    {% if project.project_request.business %}
+                      Requested by: <a href="{% url 'accounts:business-profile' project.project_request.business.id %}">{{ project.project_request.business.name }}</a>
+                    {% else %}
+                      <p>
+                        Requested by: <a href="{% url 'accounts:client-profile' project.project_request.client.id %}">{{ project.project_request.client }}</a>
+                      </p>
+                    {% endif %}
+                    <p>
+                      {{ project.managers.count }} {{ project.managers.count|pluralize:"Manager,Managers" }} - {{ project.developers.count }} {{ project.developers.count|pluralize:"Developer,Developers" }}
+                    </p>
+                    <small>{{ project.updated|date:"M d, Y" }}</small>
+                    <a class="btn btn-primary"
+                       href="{% url 'projects:project-view' project.id %}">View Details</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Projects Developed</h1>
-    </div>
-  </div>
-
-  <br>
-
-  <div class="container">
-    <div class="row" id="project-card-container">
-      {% for project in volunteer.projects_developed.all %}
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
+        {% endif %}
+        {% if volunteer.projects_developed.all %}
+          <br>
+          <h3>Developed Projects</h3>
           <div class="card-body">
-            <h5 class="card-title">{{ project.project_request.title }}</h5>
-            <p class="card-text">{{ project.project_request.description }}</p>
-            <p class="card-text">{{ project.get_status_display }}</p>
-          </div>
+            <div class="row justify-content-center align-items-center">
+              {% for project in volunteer.projects_developed.all %}
+                <div class="col-12 col-md-6 col-lg-4">
+                  <div class="card mx-2">
+                    <div class="card-body">
+                      <div class="h4 m-0">
+                        {{ project.project_request.title }}
+                        {% if project.status == '1' %}
+                          <p style="font-size: 18px;">
+                            Status: <span class="text-right lead text-warning">Finding Volunteers</span>
+                          </p>
+                        {% elif project.status == '2' %}
+                          <p class="text-right lead text-primary">Working</p>
+                        {% elif project.status == '3' %}
+                          <p class="text-right lead text-info">Final Touches</p>
+                        {% else %}
+                          <p class="text-right lead text-success">Completed</p>
+                        {% endif %}
+                      </div>
+                      <small class="text-muted">Description: {{ project.project_request.description|truncatechars:60 }}</small>
+                      {% if project.project_request.business %}
+                        Requested by: <a href="{% url 'accounts:business-profile' project.project_request.business.id %}">{{ project.project_request.business.name }}</a>
+                      {% else %}
+                        <p>
+                          Requested by: <a href="{% url 'accounts:client-profile' project.project_request.client.id %}">{{ project.project_request.client }}</a>
+                        </p>
+                      {% endif %}
+                      <p>
+                        {{ project.managers.count }} {{ project.managers.count|pluralize:"Manager,Managers" }} - {{ project.developers.count }} {{ project.developers.count|pluralize:"Developer,Developers" }}
+                      </p>
+                      <small>{{ project.updated|date:"M d, Y" }}</small>
+                      <a class="btn btn-primary"
+                         href="{% url 'projects:project-view' project.id %}">View Details</a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
       </div>
-      {% endfor %}
     </div>
   </div>
-
-  <hr>
-  
-  <!--
-  <h2>Projects Managed</h2>
-  {% for project in volunteer.projects_managed.all %}
-    <p>
-      <strong>Title:</strong> {{ project.project_request.title }}
-    </p>
-    <p>
-      <strong>Description:</strong> {{ project.project_request.description }}
-    </p>
-    <p>
-      <strong>Status:</strong> {{ project.get_status_display }}
-    </p>
-  {% endfor %}
-  <h2>Projects Developed</h2>
-  {% for project in volunteer.projects_developed.all %}
-    <p>
-      <strong>Title:</strong> {{ project.project_request.title }}
-    </p>
-    <p>
-      <strong>Description:</strong> {{ project.project_request.description }}
-    </p>
-    <p>
-      <strong>Status:</strong> {{ project.get_status_display }}
-    </p>
-  {% endfor %}
-  -->
 {% endblock body %}
