@@ -1,0 +1,57 @@
+{% extends "about/layout.html" %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'projects/css/card.css' %}">
+{% endblock head %}
+{% block body %}
+    <div class="dashboard" id="boot">
+        <h1>Tasks</h1>
+        <div class="container project-card">
+            <div style="display: flex;">
+                <div style="width: 50%;">
+                    <h3>Current Tasks</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for task in current_tasks %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span>
+                                        <input type="checkbox" id="myCheckbox" onclick="window.location.href = '{% url 'projects:complete-task' task.id %}';">
+                                    </span>&nbsp;
+                                    {{ task.task_name }}
+                                </div>
+                                <span style="text-align: right">
+                                    <a href="{% url 'projects:project-view' task.project.id %}">{{ task.project.project_request.title }}</a>
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div style="flex-grow: 1; border-left: 1px solid gray">
+                    <h3>Completed Tasks</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for task in completed_tasks %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 16 16"
+                                             width="16"
+                                             height="16">
+                                            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <strike>{{ task.task_name }}</strike>
+                                </div>
+                                <span style="text-align: right">
+                                    <a href="{% url 'projects:project-view' task.project.id %}">{{ task.project.project_request.title }}</a>
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

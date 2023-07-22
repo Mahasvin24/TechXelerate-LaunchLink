@@ -1,0 +1,94 @@
+{% extends "about/layout.html" %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'projects/css/card.css' %}">
+{% endblock head %}
+{% block body %}
+    <div class="dashboard" id="boot">
+        <h1>Volunteer Hours</h1>
+        <div class="container project-card">
+            <table class="table align-items-center mb-0" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width: 15%">
+                            <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="mb-0 text-xs">Date:</h6>
+                                </div>
+                            </div>
+                        </th>
+                        <th style="width: 15%">
+                            <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="mb-0 text-xs">Hours:</h6>
+                                </div>
+                            </div>
+                        </th>
+                        <th style="width: 15%">
+                            <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="mb-0 text-xs">Project:</h6>
+                                </div>
+                            </div>
+                        </th>
+                        <th style="width: 55%">
+                            <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="mb-0 text-xs">Description:</h6>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hour in hours %}
+                        <tr>
+                            <td style="width: 15%">
+                                <div class="d-flex px-2 py-1">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 style="text-align: left" class="mb-0 text-xs">{{ hour.date|date:"F d, Y" }}</h6>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 15% ">
+                                <div class="dropdown">
+                                    <h6 style="text-align: left" class="mb-0 text-xs">{{ hour.hours }}</h6>
+                                </div>
+                            </td>
+                            <td style="width: 15%">
+                                <div class="dropdown">
+                                    <h6 class="mb-0 text-xs"><a href="{% url 'projects:project-view' hour.project.id %}">{{ hour.project.project_request.title }}</a></h6>
+                                </div>
+                            </td>
+                            <td style="width: 55%">
+                                <div class="dropdown">
+                                    <p style="text-align: left" class="mb-0 text-xs">{{ hour.description|truncatechars:60 }}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td style="width: 15%">
+                            <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 style="text-align: left" class="mb-0 text-xs">Total Hours:</h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 15% ">
+                            <div class="dropdown">
+                                <h6 style="text-align: left" class="mb-0 text-xs">{{ request.user.volunteer.get_hours }}</h6>
+                            </div>
+                        </td>
+                        <td style="width: 15%">
+                            
+                        </td>
+                        <td style="width: 55%">
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock body %}

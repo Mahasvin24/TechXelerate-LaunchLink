@@ -10,4 +10,8 @@ urlpatterns = [
     path("dashboard", views.dashboard, name="dashboard"),
     path("requests", views.requests, name="requests"),
     path("reject-request/<int:request_id>", views.reject_request, name="reject-request"),
+    path("tasks", views.tasks, name="tasks"),
+    path("complete-task/<int:task_id>", views.complete_task, name="complete-task"),
+    path("hours", views.hours, name="hours"),
+    path("no-access", views.no_access, name="no-access"),
 ]

@@ -204,6 +204,7 @@
                         <form method="post">
                             {% csrf_token %}
                             <fieldset>
+                                {{task_form.is_task}}
                                 <label>Assign Task:</label>
                                 {{ task_form.assign }}
                                 <label>Task Name:</label>

@@ -17,7 +17,16 @@
                     <legend>
                         <span class="number">1</span>Request Info
                     </legend>
-                    {{ form }}
+                    <div style="display:flex">
+                        <label>For Business: </label> &nbsp;
+                        {{ form.is_business }}
+                    </div>
+                    <label for="business" id="is-label">Business:</label>
+                    {{ form.business }}
+                    <label for="title">Title:</label>
+                    {{ form.title }}
+                    <label for="description">Description:</label>
+                    {{ form.description }}
                 </fieldset>
                 <button type="submit">Request</button>
             </form>
@@ -27,13 +36,16 @@
     <script>
         var checkbox = document.querySelector("input[name=is_business]");
         document.getElementById("id_business").style.display = "none";
-        document.getElementById("id_business").style.display = "none";
+        document.getElementById("is-label").style.display = "none";
 
         checkbox.addEventListener('change', function() {
             if (this.checked) {
                 document.getElementById("id_business").style.display = "block";
+                document.getElementById("is-label").style.display = "block";
             } else {
                 document.getElementById("id_business").style.display = "none";
+                document.getElementById("is-label").style.display = "none";
+                document.getElementById("id_business").value = "";
             }
         });
     </script>

@@ -9,9 +9,39 @@ from .forms import ProjectRequestForm, ProjectForm, TaskForm, VolunteerLogForm
 from django.apps import apps
 Client = apps.get_model('accounts', 'Client')
 Volunteer = apps.get_model('accounts', 'Volunteer')
-from .models import ProjectRequest, Project, Task
+from .models import ProjectRequest, Project, Task, VolunteerLog
 
 # Create your views here.
+def hours(request):
+    if not request.user.is_authenticated:
+        redirect('accounts:login')
+    if not request.user.is_volunteer:
+        return redirect('projects:no-access')
+    return render(request, 'projects/hours.html', {
+        'hours': Volunteer.objects.get(user=request.user).logs.all().order_by('-date')
+    })
+
+def no_access(request):
+    return render(request, 'projects/no-access.html')
+
+def complete_task(request, task_id):
+    if Task.objects.filter(id=task_id).exists() and request.user.is_volunteer:
+        task = Task.objects.get(id=task_id)
+        task.completed = True
+        task.save()
+        return redirect('projects:tasks')
+    else:
+        return redirect('projects:no-access')
+
+def tasks(request):
+    if not request.user.is_authenticated:
+        redirect('accounts:login')
+    if not request.user.is_volunteer:
+        return redirect('projects:no-access')
+    return render(request, 'projects/tasks.html', {
+        'current_tasks': Volunteer.objects.get(user=request.user).tasks_assigned.filter(completed=False),
+        'completed_tasks':Volunteer.objects.get(user=request.user).tasks_assigned.filter(completed=True),
+    })
 
 def reject_request(request, request_id):
     if ProjectRequest.objects.filter(id=request_id).exists() and request.user.is_volunteer:
@@ -19,6 +49,9 @@ def reject_request(request, request_id):
         project_request.status = '3'
         project_request.save()
         return redirect('projects:requests')
+    else:
+        return redirect('projects:no-access')
+        
 def requests(request):
     return render(request, 'projects/requests.html', {
         'requests' : ProjectRequest.objects.exclude(status = '3'),
@@ -40,11 +73,12 @@ def project_view(request, project_id):
         }
         if request.user.is_authenticated:
             if request.method == 'POST' and request.user.is_volunteer:
+                pprint(request.POST)
                 if 'is_task' in request.POST:
                     form = TaskForm(request.POST, **{'project_id': project_id})
                     if form.is_valid():
                         task = form.save()
-                        return redirect('projects:dashboard')
+                        return redirect('projects:project-view', project_id)
                     else:
                         if request.user.is_volunteer:
                             context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
@@ -55,7 +89,7 @@ def project_view(request, project_id):
                     form = VolunteerLogForm(request.POST, **{'project_id': project_id, 'user': request.user})
                     if form.is_valid():
                         volunteer_log = form.save()
-                        return redirect('projects:dashboard')
+                        return redirect('projects:hours')
                     else:
                         if request.user.is_volunteer:
                             context['hour_form'] = VolunteerLogForm(**{'project_id': project_id, 'user': request.user})
@@ -73,8 +107,10 @@ def project_view(request, project_id):
     else:
         return redirect('projects:dashboard')
 
-@login_required
+
 def new_project(request, request_id):
+    if not request.user.is_authenticated:
+        redirect('accounts:login')
     if request.user.is_volunteer and ProjectRequest.objects.filter(id=request_id).exists():
         if request.method == 'POST':
             form = ProjectForm(request.POST, request.FILES, **{'request_id': request_id})
@@ -96,8 +132,10 @@ def new_project(request, request_id):
     else:
         return redirect('projects:dashboard')
     
-@login_required
+
 def new_request(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
     if request.user.is_client:
         if request.method == 'POST':
             form = ProjectRequestForm(request.POST, request.FILES, **{'user': request.user})
@@ -118,8 +156,10 @@ def new_request(request):
     else:
         return redirect('about:home')
     
-@login_required
+
 def new_task(request, project_id):
+    if not request.user.is_authenticated:
+        redirect('accounts:login')
     pprint(Project.objects.get(id=project_id).managers)
     if Project.objects.filter(id=project_id).exists() and Project.objects.get(id=project_id).managers.filter(user = request.user).exists():
         if request.method == 'POST':

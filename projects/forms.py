@@ -35,7 +35,7 @@ class VolunteerLogForm(forms.ModelForm):
 class ProjectRequestForm(forms.ModelForm):
     title = forms.CharField(max_length=100)
     description = forms.Textarea()
-    is_business = forms.BooleanField(initial=False, required=False, label='')
+    is_business = forms.BooleanField(initial=False, required=False, label='For Business:')
     business = forms.ModelChoiceField(queryset=None, widget=forms.Select, required=False)
     
     class Meta:
@@ -47,6 +47,7 @@ class ProjectRequestForm(forms.ModelForm):
         super(ProjectRequestForm, self).__init__(*args, **kwargs)
         if self.user is not None:
             self.fields['business'].queryset = Business.objects.filter(user=Client.objects.get(user=self.user)) 
+
             
     def save(self, commit=True):
         project = super(ProjectRequestForm, self).save(commit=False)
@@ -109,7 +110,7 @@ class TaskForm(forms.ModelForm):
     
     class Meta:
         model = Task
-        fields = ['assign', 'task_name', 'task_description']
+        fields = ['is_task','assign', 'task_name', 'task_description']
     
     def __init__(self, *args, **kwargs):
         self.project_id = kwargs.pop('project_id', None)

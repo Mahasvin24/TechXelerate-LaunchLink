@@ -94,8 +94,9 @@ def new_volunteer(request):
         }
         return render(request, 'accounts/new_volunteer.html', context)
 
-@login_required
 def new_business(request):
+    if not request.user.is_authenticated:
+        redirect('accounts:login')
     # Check for auth
     if request.user.is_client:
         if request.method == 'POST':
